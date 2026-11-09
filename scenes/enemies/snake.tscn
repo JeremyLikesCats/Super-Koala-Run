@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cswkxr8qt6uu8"]
+
+[ext_resource type="Script" uid="uid://bkbedyasyw2qc" path="res://scripts/snake.gd" id="1_a250b"]
+[ext_resource type="Texture2D" uid="uid://b7jfmouo4aafu" path="res://icon.svg" id="1_uprpt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
+size = Vector2(32, 32)
+
+[node name="Snake" type="Area2D" unique_id=625917393]
+script = ExtResource("1_a250b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1357587465]
+shape = SubResource("RectangleShape2D_k73sm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1062913358]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_uprpt")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://6jfmsi0s208v"]
+
+[ext_resource type="PackedScene" uid="uid://cswkxr8qt6uu8" path="res://scenes/enemies/snake.tscn" id="1_fr1um"]
+[ext_resource type="PackedScene" uid="uid://rxgtodip5eyo" path="res://scenes/player.tscn" id="1_jbqir"]
+[ext_resource type="Texture2D" uid="uid://b7jfmouo4aafu" path="res://icon.svg" id="1_yautc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
+size = Vector2(642, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1rft"]
+
+[node name="test_level" type="Node2D" unique_id=220094540]
+
+[node name="Snake" parent="." unique_id=625917393 groups=["Enemy"] instance=ExtResource("1_fr1um")]
+position = Vector2(190, 110)
+
+[node name="Player" parent="." unique_id=1536402110 instance=ExtResource("1_jbqir")]
+position = Vector2(20, 112)
+
+[node name="floor" type="StaticBody2D" parent="." unique_id=311129592]
+position = Vector2(-146, -149)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor" unique_id=451555495]
+position = Vector2(319, 296.5)
+shape = SubResource("RectangleShape2D_k73sm")
+
+[node name="Sprite2D" type="Sprite2D" parent="floor" unique_id=1187674529]
+position = Vector2(327.5, 296)
+scale = Vector2(5.1796875, 0.28125)
+texture = ExtResource("1_yautc")
+
+[node name="Snake1_barrier" type="Node2D" parent="." unique_id=737918009]
+position = Vector2(-252, -152)
+
+[node name="snake_right_barrier" type="Area2D" parent="Snake1_barrier" unique_id=730449624]
+position = Vector2(564, 267)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake1_barrier/snake_right_barrier" unique_id=1498564713]
+shape = SubResource("RectangleShape2D_a1rft")
+
+[node name="snake_left_barrier" type="Area2D" parent="Snake1_barrier" unique_id=1756355271]
+position = Vector2(416, 263)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake1_barrier/snake_left_barrier" unique_id=2025284897]
+shape = SubResource("RectangleShape2D_a1rft")
