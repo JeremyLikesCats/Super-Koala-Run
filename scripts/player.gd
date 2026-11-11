@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 
-const SPEED = 200.0
+const SPEED = 120.0
 const FRICTION = 50.0
-const JUMP_VELOCITY = -250.0
+const JUMP_VELOCITY = -220.0
 
 # Coyote time!! for better feeling movement allows the player to have a window of time just after falling off a platform to jump
 const COYOTE_TIME_THRESHOLD = 0.07
@@ -17,10 +17,15 @@ var incrementing_jump_buffering_time = false
 # Knockback
 const KNOCKBACK_DURATION = 0.5
 var knockback_velocity = Vector2.ZERO
-const KNOCKBACK_RESISTANCE_Y = 20.0
-const KNOCKBACK_RESISTANCE_X = 14.0
+const KNOCKBACK_RESISTANCE_Y = 40.0
+const KNOCKBACK_RESISTANCE_X = 10.0
 var knocked_back = false
 var just_knocked_back = false
+
+# Hold to jump higher
+const JUMP_WINDOW = 0.18
+var jump_time = 0
+var can_increase_jump_time = false
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -30,13 +35,16 @@ func _physics_process(delta: float) -> void:
 			just_knocked_back = false
 		if coyote_time < COYOTE_TIME_THRESHOLD:
 			coyote_time += delta
-		velocity += get_gravity() * delta
-		
+		if jump_time > JUMP_WINDOW or can_increase_jump_time == false:
+			velocity += get_gravity() * delta
+		else:
+			velocity += get_gravity()/2.8 * delta
+	
 	if is_on_floor():
+		jump_time = JUMP_WINDOW
 		coyote_time = 0
 		
-		if jump_buffering_time < JUMP_BUFFERING_THRESHOLD:
-			jump()
+		knockback_velocity.y = 0
 			
 		if knocked_back == true:
 			knockback_velocity.x = 0
@@ -50,16 +58,23 @@ func _physics_process(delta: float) -> void:
 		jump_buffering_time += delta
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_able_to_jump():
+	if Input.is_action_just_pressed("Jump") and is_able_to_jump():
 		jump()
+		can_increase_jump_time = true
+		jump_time = 0
 		
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("Jump"):
 		jump_buffering_time = 0
 		incrementing_jump_buffering_time = true
-		print(jump_buffering_time)
-		print(incrementing_jump_buffering_time)
+
+	if Input.is_action_just_released("Jump") or jump_time >= JUMP_WINDOW:
+		can_increase_jump_time = false
+		
+	print(can_increase_jump_time)
 	
-	print(knocked_back)
+	if Input.is_action_pressed("Jump") and can_increase_jump_time == true:
+		jump_time += delta
+	
 	
 	# Handle movement.
 	var direction := Input.get_axis("Left", "Right")
@@ -71,7 +86,6 @@ func _physics_process(delta: float) -> void:
 	knockback_velocity.y = move_toward(knockback_velocity.y, 0, KNOCKBACK_RESISTANCE_Y)
 	knockback_velocity.x = move_toward(knockback_velocity.x, 0, KNOCKBACK_RESISTANCE_X)
 	
-	print(knockback_velocity)
 	velocity += knockback_velocity
 	move_and_slide()
 
@@ -91,11 +105,12 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Enemy"):
 		# Mario-like enemy hit
 		   # moving downward
-		if velocity.y > 0 and position.y < area.global_position.y:
+		if velocity.y > 0 and position.y < area.global_position.y and knocked_back == false:
 			velocity.y = 0
-			knockback(Vector2(0, -220))
+			knockback(Vector2(0, -290))
 			area.queue_free()
 		elif knocked_back == false:
 			velocity.x = 0
-			knockback(Vector2((area.velocity - velocity.x) * 1.4, -200))
+			print((area.velocity - velocity.x) * 2)
+			knockback(Vector2((area.velocity - velocity.x) *  8, -290))
 			just_knocked_back = true
