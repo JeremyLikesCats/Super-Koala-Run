@@ -24,11 +24,16 @@ const JUMP_WINDOW = 0.19
 var jump_time = 0
 var can_increase_jump_time = false
 
-var health: HealthCompoenent
+var health: HealthComponent
+
+var leaves: LeafComponent
 
 func _ready() -> void:
 	health = $Health
 	health.died.connect(die)
+	
+	leaves = $Leaves
+	
 
 func _physics_process(delta: float) -> void:
 	
@@ -123,3 +128,7 @@ func _on_area_entered(area: Area2D) -> void:
 			health.take_damage(area.damage)
 	elif area.is_in_group("Lava"):
 		health.die()
+	elif area.is_in_group("Collectible"):
+		if area.type == "Leaf":
+			leaves.add_leaves(area.value)
+		area.queue_free()

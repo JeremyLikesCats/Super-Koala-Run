@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b7sl0vfiadw3f"]
+
+[ext_resource type="Texture2D" uid="uid://njchxfmsrtux" path="res://assets/Collectibles/Leaf.png" id="1_36xg6"]
+[ext_resource type="Script" uid="uid://diwbqki5jipq" path="res://scripts/leaf.gd" id="1_kx8t6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
+size = Vector2(16, 16)
+
+[node name="Leaf" type="Area2D" unique_id=1597708914 groups=["Collectible"]]
+script = ExtResource("1_kx8t6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=844893893]
+texture = ExtResource("1_36xg6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=259590873]
+shape = SubResource("RectangleShape2D_k73sm")

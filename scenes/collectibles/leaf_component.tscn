@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bn7ghx8d577tk"]
+
+[ext_resource type="Script" uid="uid://y4ok8jm7gyhb" path="res://scripts/leaf_component.gd" id="1_1ud6v"]
+
+[node name="LeafComponent" type="Node" unique_id=1245672261]
+script = ExtResource("1_1ud6v")

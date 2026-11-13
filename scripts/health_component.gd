@@ -1,17 +1,18 @@
 extends Node
 
-class_name HealthCompoenent
+class_name HealthComponent
 
 @export var max_health: int = 5
 var current_health: int
 
+
 signal health_changed(current: int, max: int)
 signal died
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_health = max_health
-
+	health_changed.emit(current_health, max_health)
+	
 func take_damage(amount: int):
 	current_health -= amount
 	health_changed.emit(current_health, max_health)
