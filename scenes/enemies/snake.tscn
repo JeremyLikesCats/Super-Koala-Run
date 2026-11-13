@@ -2,12 +2,16 @@
 
 [ext_resource type="Script" uid="uid://bkbedyasyw2qc" path="res://scripts/snake.gd" id="1_a250b"]
 [ext_resource type="Texture2D" uid="uid://b7jfmouo4aafu" path="res://icon.svg" id="1_uprpt"]
+[ext_resource type="PackedScene" uid="uid://bgr2qymlhr61n" path="res://scenes/health_component.tscn" id="2_lcdrh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
 size = Vector2(16, 16)
 
-[node name="Snake" type="Area2D" unique_id=625917393]
+[node name="Snake" type="Area2D" unique_id=625917393 groups=["Enemy"]]
 script = ExtResource("1_a250b")
+
+[node name="HealthComponent" parent="." unique_id=41036486 instance=ExtResource("2_lcdrh")]
+max_health = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1357587465]
 shape = SubResource("RectangleShape2D_k73sm")

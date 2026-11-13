@@ -2,12 +2,17 @@
 
 [ext_resource type="Texture2D" uid="uid://b7jfmouo4aafu" path="res://icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://c3skc5otff38y" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://chicamcjl05as" path="res://scripts/health_component.gd" id="2_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
 size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D" unique_id=1536402110]
 script = ExtResource("1_g2els")
+
+[node name="Health" type="Node" parent="." unique_id=1094424130]
+script = ExtResource("2_qhqgy")
+metadata/_custom_type_script = "uid://chicamcjl05as"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1856484197]
 scale = Vector2(0.12499999, 0.12499999)

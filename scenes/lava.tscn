@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://0hqcfvd3o11j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
+size = Vector2(16, 16)
+
+[node name="Lava" type="Area2D" unique_id=175045434 groups=["Lava"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2048358255]
+shape = SubResource("RectangleShape2D_k73sm")

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://rxgtodip5eyo" path="res://scenes/player.tscn" id="1_6iamk"]
 [ext_resource type="Texture2D" uid="uid://chartvif52rmd" path="res://assets/Tileset.png" id="1_ksju7"]
 [ext_resource type="PackedScene" uid="uid://cswkxr8qt6uu8" path="res://scenes/enemies/snake.tscn" id="3_nsrm0"]
+[ext_resource type="PackedScene" uid="uid://0hqcfvd3o11j" path="res://scenes/lava.tscn" id="4_x42e6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6iamk"]
 texture = ExtResource("1_ksju7")
@@ -94,85 +95,106 @@ tile_set = SubResource("TileSet_k73sm")
 [node name="Player" parent="." unique_id=1536402110 instance=ExtResource("1_6iamk")]
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=900290926]
-position = Vector2(0, 10)
 position_smoothing_enabled = true
 
-[node name="Snake_1" parent="." unique_id=625917393 groups=["Enemy"] instance=ExtResource("3_nsrm0")]
+[node name="GUI" type="Control" parent="." unique_id=1875672250]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1852138234]
+
+[node name="Snake_1" parent="Enemies" unique_id=625917393 instance=ExtResource("3_nsrm0")]
 position = Vector2(264, 72)
 velocity = 20
 
-[node name="Snake1_barrier" type="Node2D" parent="." unique_id=64702890]
+[node name="Snake1_barrier" type="Node2D" parent="Enemies" unique_id=64702890]
 position = Vector2(280, 72)
 
-[node name="snake_right_barrier" type="Area2D" parent="Snake1_barrier" unique_id=1544433493]
+[node name="snake_right_barrier" type="Area2D" parent="Enemies/Snake1_barrier" unique_id=1544433493]
 position = Vector2(32, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake1_barrier/snake_right_barrier" unique_id=1094393297]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Snake1_barrier/snake_right_barrier" unique_id=1094393297]
 shape = SubResource("RectangleShape2D_x42e6")
 
-[node name="snake_left_barrier" type="Area2D" parent="Snake1_barrier" unique_id=910126509]
+[node name="snake_left_barrier" type="Area2D" parent="Enemies/Snake1_barrier" unique_id=910126509]
 position = Vector2(-24, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake1_barrier/snake_left_barrier" unique_id=83770261]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Snake1_barrier/snake_left_barrier" unique_id=83770261]
 position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_x42e6")
 
-[node name="Snake_2" parent="." unique_id=931875688 groups=["Enemy"] instance=ExtResource("3_nsrm0")]
+[node name="Snake_2" parent="Enemies" unique_id=931875688 instance=ExtResource("3_nsrm0")]
 position = Vector2(392, 56)
 velocity = 20
 
-[node name="Snake2_barrier" type="Node2D" parent="." unique_id=123436804]
+[node name="Snake2_barrier" type="Node2D" parent="Enemies" unique_id=123436804]
 position = Vector2(408, 56)
 
-[node name="snake_right_barrier" type="Area2D" parent="Snake2_barrier" unique_id=1876360232]
+[node name="snake_right_barrier" type="Area2D" parent="Enemies/Snake2_barrier" unique_id=1876360232]
 position = Vector2(48, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake2_barrier/snake_right_barrier" unique_id=1970794469]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Snake2_barrier/snake_right_barrier" unique_id=1970794469]
 shape = SubResource("RectangleShape2D_x42e6")
 
-[node name="snake_left_barrier" type="Area2D" parent="Snake2_barrier" unique_id=1534292755]
+[node name="snake_left_barrier" type="Area2D" parent="Enemies/Snake2_barrier" unique_id=1534292755]
 position = Vector2(-24, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake2_barrier/snake_left_barrier" unique_id=1849558232]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Snake2_barrier/snake_left_barrier" unique_id=1849558232]
 position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_x42e6")
 
-[node name="Snake_3" parent="." unique_id=425459386 groups=["Enemy"] instance=ExtResource("3_nsrm0")]
+[node name="Snake_3" parent="Enemies" unique_id=425459386 instance=ExtResource("3_nsrm0")]
 position = Vector2(504, 104)
 velocity = 20
 
-[node name="Snake3_barrier" type="Node2D" parent="." unique_id=1525370102]
+[node name="Snake3_barrier" type="Node2D" parent="Enemies" unique_id=1525370102]
 position = Vector2(816, 112)
 
-[node name="snake_right_barrier" type="Area2D" parent="Snake3_barrier" unique_id=1062827221]
+[node name="snake_right_barrier" type="Area2D" parent="Enemies/Snake3_barrier" unique_id=1062827221]
 position = Vector2(-264, -8)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake3_barrier/snake_right_barrier" unique_id=1528918269]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Snake3_barrier/snake_right_barrier" unique_id=1528918269]
 shape = SubResource("RectangleShape2D_x42e6")
 
-[node name="snake_left_barrier" type="Area2D" parent="Snake3_barrier" unique_id=2015957554]
+[node name="snake_left_barrier" type="Area2D" parent="Enemies/Snake3_barrier" unique_id=2015957554]
 position = Vector2(-320, -8)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake3_barrier/snake_left_barrier" unique_id=782949030]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Snake3_barrier/snake_left_barrier" unique_id=782949030]
 position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_x42e6")
 
-[node name="Snake_4" parent="." unique_id=181398263 groups=["Enemy"] instance=ExtResource("3_nsrm0")]
+[node name="Snake_4" parent="Enemies" unique_id=181398263 instance=ExtResource("3_nsrm0")]
 position = Vector2(648, 136)
 velocity = 20
 
-[node name="Snake4_barrier" type="Node2D" parent="." unique_id=1947166039]
+[node name="Snake4_barrier" type="Node2D" parent="Enemies" unique_id=1947166039]
 position = Vector2(960, 144)
 
-[node name="snake_right_barrier" type="Area2D" parent="Snake4_barrier" unique_id=1980994190]
+[node name="snake_right_barrier" type="Area2D" parent="Enemies/Snake4_barrier" unique_id=1980994190]
 position = Vector2(-248, -8)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake4_barrier/snake_right_barrier" unique_id=1522110788]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Snake4_barrier/snake_right_barrier" unique_id=1522110788]
 shape = SubResource("RectangleShape2D_x42e6")
 
-[node name="snake_left_barrier" type="Area2D" parent="Snake4_barrier" unique_id=498139328]
+[node name="snake_left_barrier" type="Area2D" parent="Enemies/Snake4_barrier" unique_id=498139328]
 position = Vector2(-320, -8)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake4_barrier/snake_left_barrier" unique_id=493017951]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Snake4_barrier/snake_left_barrier" unique_id=493017951]
 position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_x42e6")
+
+[node name="Lava" type="Node2D" parent="." unique_id=1095369879]
+
+[node name="Lava" parent="Lava" unique_id=175045434 instance=ExtResource("4_x42e6")]
+position = Vector2(216, 138)
+scale = Vector2(3, 1)
+
+[node name="Lava2" parent="Lava" unique_id=377780749 instance=ExtResource("4_x42e6")]
+position = Vector2(344, 106)
+scale = Vector2(3, 1)
+
+[node name="Lava3" parent="Lava" unique_id=981486826 instance=ExtResource("4_x42e6")]
+position = Vector2(592, 154)
+scale = Vector2(4, 1)

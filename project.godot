@@ -30,6 +30,8 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 [global_group]
 
 Enemy="Group for enemies."
+Lava=""
+Collectible=""
 
 [input]
 
@@ -58,5 +60,6 @@ Jump={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"

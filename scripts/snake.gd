@@ -1,6 +1,8 @@
 extends Area2D
 
 @export var velocity = 200
+@export var knockback = Vector2(220, -200)
+@export var damage = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
