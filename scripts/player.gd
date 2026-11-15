@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 120.0
+const SPEED = 110.0
 const FRICTION = 20.0
 const JUMP_VELOCITY = -220.0
 const BOUNCE_VELOCITY = -200.0
@@ -28,10 +28,15 @@ var health: HealthComponent
 
 var leaves: LeafComponent
 
+const DAMAGE_COOLDOWN = 1
+var timeSinceDamaged: float
+var increasingTimeSinceDamaged = false
+
+
 func _ready() -> void:
 	health = $Health
 	health.died.connect(die)
-	
+	timeSinceDamaged = DAMAGE_COOLDOWN
 	leaves = $Leaves
 	
 
@@ -95,9 +100,15 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, FRICTION)
+		
+	
+	if increasingTimeSinceDamaged:
+		print("hi")
+		timeSinceDamaged += delta
+		if timeSinceDamaged > DAMAGE_COOLDOWN:
+			increasingTimeSinceDamaged = false	
+	print(timeSinceDamaged)
 	move_and_slide()
-	if knocked_back:
-		print(velocity.x)
 func jump():
 	if not knocked_back:
 		velocity.y = JUMP_VELOCITY
@@ -116,16 +127,26 @@ func knockback(force_vector: Vector2):
 func die():
 	self.queue_free()
 
+func take_enemy_damage(enemy: Area2D):
+	if timeSinceDamaged >= DAMAGE_COOLDOWN:
+		knockback(Vector2(enemy.knockback.x * sign(position.x - enemy.global_position.x), enemy.knockback.y))
+		health.take_damage(enemy.damage)
+		print("hi")
+		timeSinceDamaged = 0
+		increasingTimeSinceDamaged = true
+
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Enemy"):
 		# Mario-like enemy hit
 		   # moving downward  # Above enemy                           # not in the state of being knocked back
-		if velocity.y > 0 and position.y < area.global_position.y and knocked_back == false:
-			velocity.y = BOUNCE_VELOCITY
-			area.queue_free()
+		if velocity.y > 0 and position.y < area.global_position.y and knocked_back == false :
+			if area.id != "spiked_turtle":
+				velocity.y = BOUNCE_VELOCITY
+				area.healthComponent.take_damage(1)
+			else:
+				take_enemy_damage(area)
 		elif knocked_back == false:
-			knockback(Vector2(area.knockback.x * sign(position.x - area.global_position.x), area.knockback.y))
-			health.take_damage(area.damage)
+			take_enemy_damage(area)
 	elif area.is_in_group("Lava"):
 		health.die()
 	elif area.is_in_group("Collectible"):

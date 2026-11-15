@@ -7,10 +7,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
 size = Vector2(16, 16)
 
-[node name="Snake" type="Area2D" unique_id=625917393 groups=["Enemy"]]
+[node name="Snake" type="Area2D" unique_id=625917393 node_paths=PackedStringArray("healthComponent") groups=["Enemy"]]
 script = ExtResource("1_a250b")
+healthComponent = NodePath("Health")
 
-[node name="HealthComponent" parent="." unique_id=41036486 instance=ExtResource("2_lcdrh")]
+[node name="Health" parent="." unique_id=41036486 instance=ExtResource("2_lcdrh")]
 max_health = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1357587465]

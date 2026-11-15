@@ -13,6 +13,7 @@ script = ExtResource("1_g2els")
 
 [node name="Health" type="Node" parent="." unique_id=1094424130]
 script = ExtResource("2_qhqgy")
+max_health = 20
 metadata/_custom_type_script = "uid://chicamcjl05as"
 
 [node name="Leaves" type="Node" parent="." unique_id=1149685306]

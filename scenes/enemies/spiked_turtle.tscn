@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://6p4f8rkmd7c3"]
+
+[ext_resource type="Texture2D" uid="uid://b2iwqygetgpw1" path="res://assets/Enemies/Spiked_turtle.png" id="1_li6ro"]
+[ext_resource type="Script" uid="uid://diq3egx6rgygy" path="res://scripts/spiked_turtle.gd" id="1_ueghy"]
+[ext_resource type="Script" uid="uid://chicamcjl05as" path="res://scripts/health_component.gd" id="3_y4o1u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
+size = Vector2(16, 15)
+
+[node name="SpikedTurtle" type="Area2D" unique_id=1099231975 node_paths=PackedStringArray("healthComponent") groups=["Enemy"]]
+script = ExtResource("1_ueghy")
+healthComponent = NodePath("Health")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=526326493]
+texture = ExtResource("1_li6ro")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2110476871]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_k73sm")
+
+[node name="Health" type="Node" parent="." unique_id=816865461]
+script = ExtResource("3_y4o1u")
+max_health = 1
+metadata/_custom_type_script = "uid://chicamcjl05as"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
