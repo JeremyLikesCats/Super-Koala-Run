@@ -15,6 +15,9 @@ const JUMP_BUFFERING_THRESHOLD = 0.15
 var jump_buffering_time = JUMP_BUFFERING_THRESHOLD
 var incrementing_jump_buffering_time = false
 
+var jump_window_caused_by_buffering = 0
+var jump_caused_by_buffering = false
+
 # Knockback
 var knocked_back = false
 var just_knocked_back = false
@@ -24,6 +27,7 @@ const JUMP_WINDOW = 0.19
 var jump_time = 0
 var can_increase_jump_time = false
 
+
 var health: HealthComponent
 
 var leaves: LeafComponent
@@ -32,6 +36,8 @@ const DAMAGE_COOLDOWN = 1
 var timeSinceDamaged: float
 var increasingTimeSinceDamaged = false
 
+
+@export var beginning: Node2D
 
 func _ready() -> void:
 	health = $Health
@@ -48,16 +54,25 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		if coyote_time < COYOTE_TIME_THRESHOLD:
 			coyote_time += delta
-		if jump_time > JUMP_WINDOW or can_increase_jump_time == false:
-			velocity += get_gravity() * delta
+		if jump_caused_by_buffering:
+			print(jump_buffering_time)
+			print(jump_time)
+			print(jump_window_caused_by_buffering)
+			if jump_time - jump_window_caused_by_buffering <= JUMP_WINDOW and can_increase_jump_time:
+				velocity += get_gravity()/2.8 * delta
+			else:
+				velocity += get_gravity() * delta
 		else:
-			velocity += get_gravity()/2.8 * delta
+			if jump_time > JUMP_WINDOW or can_increase_jump_time == false:
+				velocity += get_gravity() * delta
+			else:
+				velocity += get_gravity()/2.8 * delta
 	
 	if is_on_floor():
 		jump_time = JUMP_WINDOW
 		coyote_time = 0
 		
-		
+		jump_caused_by_buffering = false
 		if just_knocked_back == false:
 			knocked_back = false
 		
@@ -65,6 +80,10 @@ func _physics_process(delta: float) -> void:
 			just_knocked_back = false
 		
 		if jump_buffering_time < JUMP_BUFFERING_THRESHOLD:
+			jump_time = 0
+			jump_caused_by_buffering = true
+			jump_window_caused_by_buffering = jump_buffering_time
+			can_increase_jump_time = Input.is_action_pressed("Jump")
 			jump()
 			
 		jump_buffering_time = JUMP_BUFFERING_THRESHOLD
@@ -82,13 +101,14 @@ func _physics_process(delta: float) -> void:
 		jump_time = 0
 	
 	
-	
 	if Input.is_action_just_pressed("Jump"):
 		jump_buffering_time = 0
 		incrementing_jump_buffering_time = true
-
-	if Input.is_action_just_released("Jump") or jump_time >= JUMP_WINDOW:
+	
+	print(jump_caused_by_buffering)
+	if Input.is_action_just_released("Jump"):
 		can_increase_jump_time = false
+
 	
 	if Input.is_action_pressed("Jump") and can_increase_jump_time == true:
 		jump_time += delta
@@ -103,12 +123,11 @@ func _physics_process(delta: float) -> void:
 		
 	
 	if increasingTimeSinceDamaged:
-		print("hi")
 		timeSinceDamaged += delta
 		if timeSinceDamaged > DAMAGE_COOLDOWN:
 			increasingTimeSinceDamaged = false	
-	print(timeSinceDamaged)
 	move_and_slide()
+
 func jump():
 	if not knocked_back:
 		velocity.y = JUMP_VELOCITY
@@ -131,7 +150,6 @@ func take_enemy_damage(enemy: Area2D):
 	if timeSinceDamaged >= DAMAGE_COOLDOWN:
 		knockback(Vector2(enemy.knockback.x * sign(position.x - enemy.global_position.x), enemy.knockback.y))
 		health.take_damage(enemy.damage)
-		print("hi")
 		timeSinceDamaged = 0
 		increasingTimeSinceDamaged = true
 
@@ -148,7 +166,8 @@ func _on_area_entered(area: Area2D) -> void:
 		elif knocked_back == false:
 			take_enemy_damage(area)
 	elif area.is_in_group("Lava"):
-		health.die()
+		position = beginning.position
+		health.take_damage(2)
 	elif area.is_in_group("Collectible"):
 		if area.type == "Leaf":
 			leaves.add_leaves(area.value)

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://gfj2oifyslxv"]
+
+[ext_resource type="Texture2D" uid="uid://cj4yrke61d6lw" path="res://assets/StartScreenbackground.png" id="1_fnul3"]
+[ext_resource type="Script" uid="uid://ce2tbglwnow6" path="res://scripts/main_ui.gd" id="1_j6a7c"]
+[ext_resource type="Texture2D" uid="uid://c48cmmuwj7y5e" path="res://assets/PlayButton.png" id="2_e6fyy"]
+[ext_resource type="PackedScene" uid="uid://c8bswsu48h6m0" path="res://scenes/levels/level_1.tscn" id="2_scoti"]
+[ext_resource type="Texture2D" uid="uid://c58ekkfbqnrcd" path="res://assets/Button_hover.png" id="3_j6a7c"]
+
+[node name="Main UI" type="Control" unique_id=423877210]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j6a7c")
+first_scene = ExtResource("2_scoti")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1694139381]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=953678453]
+offset_right = 160.0
+offset_bottom = 120.0
+texture = ExtResource("1_fnul3")
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer" unique_id=1535702602]
+offset_left = 8.0
+offset_top = 80.0
+offset_right = 72.0
+offset_bottom = 128.0
+texture_normal = ExtResource("2_e6fyy")
+texture_hover = ExtResource("3_j6a7c")
+
+[connection signal="button_down" from="CanvasLayer/TextureButton" to="." method="_on_texture_button_button_down"]
