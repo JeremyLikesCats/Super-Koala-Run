@@ -28,7 +28,6 @@ const JUMP_BUFFERING_TIME_THRESHOLD = 0.15
 var jump_buffering_timer = 0
 var incrementing_jump_buffering_timer = false
 
-## REFACTORING MOVEMENT 
 
 func _ready() -> void:
 	pass
