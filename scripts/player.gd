@@ -1,174 +1,138 @@
 extends CharacterBody2D
 
-
+## Basic movement constants
 const SPEED = 110.0
 const FRICTION = 20.0
 const JUMP_VELOCITY = -220.0
-const BOUNCE_VELOCITY = -200.0
 
-# Coyote time!! for better feeling movement allows the player to have a window of time just after falling off a platform to jump
-const COYOTE_TIME_THRESHOLD = 0.07
-var coyote_time = 0
-
-# Jump buffering - allows the user to jump just before landing for a few frames
-const JUMP_BUFFERING_THRESHOLD = 0.15
-var jump_buffering_time = JUMP_BUFFERING_THRESHOLD
-var incrementing_jump_buffering_time = false
-
-var jump_window_caused_by_buffering = 0
-var jump_caused_by_buffering = false
-
-# Knockback
-var knocked_back = false
-var just_knocked_back = false
-
-# Hold to jump higher
-const JUMP_WINDOW = 0.19
-var jump_time = 0
-var can_increase_jump_time = false
+## States
+var knocked_back: bool = false
+var just_knocked_back: bool = false
+var jumped: bool = false
+var just_jumped: bool = false
 
 
-var health: HealthComponent
+## Coyote Time
+const COYOTE_TIME_THRESHOLD = 0.06
+var coyote_time_timer = 0
+var coyote_can_jump = false # Activates only if you just got of an edge. 
 
-var leaves: LeafComponent
+## Hold to jump higher
+const GRAVITY_REDUCE_FACTOR = 1/2.8
+const JUMP_HOLD_TIME_THRESHOLD = 0.19
+var jump_hold_timer = 0
+var jump_holding = false # Only true during the jump holding time 
 
-const DAMAGE_COOLDOWN = 1
-var timeSinceDamaged: float
-var increasingTimeSinceDamaged = false
+## Jump Buffering
+const JUMP_BUFFERING_TIME_THRESHOLD = 0.15
+var jump_buffering_timer = 0
+var incrementing_jump_buffering_timer = false
 
-
-@export var beginning: Node2D
+## REFACTORING MOVEMENT 
 
 func _ready() -> void:
-	health = $Health
-	health.died.connect(die)
-	timeSinceDamaged = DAMAGE_COOLDOWN
-	leaves = $Leaves
-	
+	pass
 
 func _physics_process(delta: float) -> void:
-	
-	
-	
-	# Add the gravity.
-	if not is_on_floor():
-		if coyote_time < COYOTE_TIME_THRESHOLD:
-			coyote_time += delta
-		if jump_caused_by_buffering:
-			print(jump_buffering_time)
-			print(jump_time)
-			print(jump_window_caused_by_buffering)
-			if jump_time - jump_window_caused_by_buffering <= JUMP_WINDOW and can_increase_jump_time:
-				velocity += get_gravity()/2.8 * delta
-			else:
-				velocity += get_gravity() * delta
-		else:
-			if jump_time > JUMP_WINDOW or can_increase_jump_time == false:
-				velocity += get_gravity() * delta
-			else:
-				velocity += get_gravity()/2.8 * delta
-	
-	if is_on_floor():
-		jump_time = JUMP_WINDOW
-		coyote_time = 0
+	if not knocked_back:
+		# Basic movement
+		detect_sideways_movement()
 		
-		jump_caused_by_buffering = false
-		if just_knocked_back == false:
-			knocked_back = false
+		# Jump detection
+		detect_jumping()
 		
-		if just_knocked_back == true:
-			just_knocked_back = false
+		# Coyote time
+		if not is_on_floor() and not jumped and not knocked_back:
+			coyote_can_jump = true
 		
-		if jump_buffering_time < JUMP_BUFFERING_THRESHOLD:
-			jump_time = 0
-			jump_caused_by_buffering = true
-			jump_window_caused_by_buffering = jump_buffering_time
-			can_increase_jump_time = Input.is_action_pressed("Jump")
-			jump()
+		## While you can jump with coyote time, increment the timer and check if you can still jump
+		if coyote_can_jump == true:
+			coyote_time_timer += delta
+			if coyote_time_timer > COYOTE_TIME_THRESHOLD:
+				coyote_can_jump = false
+				coyote_time_timer = 0
+		
+		# Jump Buffering
+		if incrementing_jump_buffering_timer:
+			jump_buffering_timer += delta
+
+		if not is_on_floor():
+			if Input.is_action_just_pressed("Jump"):
+				jump_buffering_timer = 0
+				incrementing_jump_buffering_timer = true
+				
+		detect_buffered_jumping()
+				
+		# Jump Holding Detection
+		
+		## Basic jump (floor jump)
+		if Input.is_action_pressed("Jump"):
+			if jump_holding:
+				jump_hold_timer += delta
 			
-		jump_buffering_time = JUMP_BUFFERING_THRESHOLD
-		incrementing_jump_buffering_time = false
+			if jump_hold_timer > JUMP_HOLD_TIME_THRESHOLD:
+				jump_hold_timer = 0
+				jump_holding = false
+		else:
+			jump_hold_timer = 0
+			jump_holding = false
 		
+	# Gravity + Jump Holding
+	if not is_on_floor():
+		apply_gravity(delta)
+	
+	# Reset states
+	if just_knocked_back:
+		just_knocked_back = false
+	else:
+		if is_on_floor():
+			knocked_back = false
+			
+	if just_jumped:
+		just_jumped = false
+	else:
+		if is_on_floor():
+			jumped = false
+			
+	move_and_slide()
+	
+func apply_gravity(delta):
+	if jump_holding:
+		velocity += get_gravity()/2.8 * delta
+	else:
+		velocity += get_gravity() * delta
 
-	if incrementing_jump_buffering_time:
-		jump_buffering_time += delta
-	
-	# Handle jump.
-	# TODO: somehow implement so that if you hold jump you keepj umping?
-	if Input.is_action_just_pressed("Jump") and is_able_to_jump():
-		jump()
-		can_increase_jump_time = true
-		jump_time = 0
-	
-	
-	if Input.is_action_just_pressed("Jump"):
-		jump_buffering_time = 0
-		incrementing_jump_buffering_time = true
-	
-	print(jump_caused_by_buffering)
-	if Input.is_action_just_released("Jump"):
-		can_increase_jump_time = false
-
-	
-	if Input.is_action_pressed("Jump") and can_increase_jump_time == true:
-		jump_time += delta
-	
-	
-	# Handle movement.
+func detect_sideways_movement():
 	var direction := Input.get_axis("Left", "Right")
-	if direction and not knocked_back:
+	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, FRICTION)
-		
 	
-	if increasingTimeSinceDamaged:
-		timeSinceDamaged += delta
-		if timeSinceDamaged > DAMAGE_COOLDOWN:
-			increasingTimeSinceDamaged = false	
-	move_and_slide()
+func detect_buffered_jumping():
+	if is_on_floor():
+		if jump_buffering_timer < JUMP_BUFFERING_TIME_THRESHOLD and incrementing_jump_buffering_timer:
+			jump()
+
+		jump_buffering_timer = 0
+		incrementing_jump_buffering_timer = false
+
+func detect_jumping():	
+	if Input.is_action_just_pressed("Jump"):
+		if is_on_floor() or coyote_can_jump:
+			jump()
 
 func jump():
-	if not knocked_back:
-		velocity.y = JUMP_VELOCITY
+	velocity.y = JUMP_VELOCITY
+	
+	## Allow jump holding mechanic to kick in
+	jump_holding = true
+	
+	## Set jumped state to true
+	jumped = true
+	just_jumped = true
 
-func is_able_to_jump():
-	if is_on_floor() or coyote_time < COYOTE_TIME_THRESHOLD:
-		return true
-	return false
-		
-
-func knockback(force_vector: Vector2):
-	velocity = force_vector
-	just_knocked_back = true
+func knockback(knockback_velocity: Vector2):
+	velocity = knockback_velocity
 	knocked_back = true
-
-func die():
-	self.queue_free()
-
-func take_enemy_damage(enemy: Area2D):
-	if timeSinceDamaged >= DAMAGE_COOLDOWN:
-		knockback(Vector2(enemy.knockback.x * sign(position.x - enemy.global_position.x), enemy.knockback.y))
-		health.take_damage(enemy.damage)
-		timeSinceDamaged = 0
-		increasingTimeSinceDamaged = true
-
-func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Enemy"):
-		# Mario-like enemy hit
-		   # moving downward  # Above enemy                           # not in the state of being knocked back
-		if velocity.y > 0 and position.y < area.global_position.y and knocked_back == false :
-			if area.id != "spiked_turtle":
-				velocity.y = BOUNCE_VELOCITY
-				area.healthComponent.take_damage(1)
-			else:
-				take_enemy_damage(area)
-		elif knocked_back == false:
-			take_enemy_damage(area)
-	elif area.is_in_group("Lava"):
-		position = beginning.position
-		health.take_damage(2)
-	elif area.is_in_group("Collectible"):
-		if area.type == "Leaf":
-			leaves.add_leaves(area.value)
-		area.queue_free()
+	just_knocked_back = true
