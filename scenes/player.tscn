@@ -8,8 +8,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
 size = Vector2(16, 16)
 
-[node name="Player" type="CharacterBody2D" unique_id=1536402110 groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1536402110 node_paths=PackedStringArray("health", "leaves") groups=["Player"]]
 script = ExtResource("1_g2els")
+health = NodePath("Health")
+leaves = NodePath("Leaves")
 
 [node name="Health" type="Node" parent="." unique_id=1094424130]
 script = ExtResource("2_qhqgy")

@@ -4,13 +4,14 @@ extends CharacterBody2D
 const SPEED = 110.0
 const FRICTION = 20.0
 const JUMP_VELOCITY = -220.0
+const BOUNCE_VELOCITY = -210.0
+const KNOCKBACK_FRICTION = 18.0
 
 ## States
 var knocked_back: bool = false
 var just_knocked_back: bool = false
 var jumped: bool = false
 var just_jumped: bool = false
-
 
 ## Coyote Time
 const COYOTE_TIME_THRESHOLD = 0.06
@@ -19,7 +20,7 @@ var coyote_can_jump = false # Activates only if you just got of an edge.
 
 ## Hold to jump higher
 const GRAVITY_REDUCE_FACTOR = 1/2.8
-const JUMP_HOLD_TIME_THRESHOLD = 0.19
+const JUMP_HOLD_TIME_THRESHOLD = 0.23
 var jump_hold_timer = 0
 var jump_holding = false # Only true during the jump holding time 
 
@@ -28,6 +29,15 @@ const JUMP_BUFFERING_TIME_THRESHOLD = 0.15
 var jump_buffering_timer = 0
 var incrementing_jump_buffering_timer = false
 
+## Damage Cooldown
+const DAMAGE_COOLDOWN = 1.0
+var damage_cooldown_time = 0
+var in_damage_cooldown = false
+
+## Stats
+@export var health: Node
+@export var leaves: Node
+@export var beginning: Node2D
 
 func _ready() -> void:
 	pass
@@ -85,14 +95,25 @@ func _physics_process(delta: float) -> void:
 		just_knocked_back = false
 	else:
 		if is_on_floor():
-			knocked_back = false
-			
+			knocked_back = false		
+	
 	if just_jumped:
 		just_jumped = false
 	else:
 		if is_on_floor():
 			jumped = false
-			
+	
+	# Apply knockback horizontal friction
+	velocity.x = move_toward(velocity.x, 0, KNOCKBACK_FRICTION)
+	
+	# Damage Cooldown
+	if in_damage_cooldown:
+		damage_cooldown_time += delta
+	
+	if damage_cooldown_time > DAMAGE_COOLDOWN:
+		in_damage_cooldown = false
+		damage_cooldown_time = 0
+	
 	move_and_slide()
 	
 func apply_gravity(delta):
@@ -135,3 +156,43 @@ func knockback(knockback_velocity: Vector2):
 	velocity = knockback_velocity
 	knocked_back = true
 	just_knocked_back = true
+
+func get_hit_by_enemy(enemy: Area2D):
+	if not in_damage_cooldown:
+		knockback(Vector2(enemy.knockback.x * sign(position.x - enemy.global_position.x), enemy.knockback.y))
+		damage_cooldown_time = 0
+		in_damage_cooldown = true
+		health.take_damage(enemy.damage)
+		jump_holding = false
+
+## Saving and loading to globals across scenes
+func save_data_to_globals():
+	PlayerData.current_health = health.current_health
+	PlayerData.max_health = health.max_health
+	PlayerData.leaves = leaves.leaves
+	
+func load_data_from_globals():
+	health.current_health = PlayerData.current_health
+	health.max_health = PlayerData.max_health
+	leaves.leaves = PlayerData.leaves
+
+# COLLISIONS
+func _on_area_entered(area: Area2D):
+	if area.is_in_group("Enemy"):
+		# Mario-like enemy hit
+		if not knocked_back:
+			if velocity.y > 0 and position.y < area.global_position.y:
+				if area.id != "spiked_turtle":
+					velocity.y = BOUNCE_VELOCITY
+					area.healthComponent.take_damage(1)
+				else:
+					get_hit_by_enemy(area)
+			else:
+				get_hit_by_enemy(area)
+	elif area.is_in_group("Lava"):
+		position = beginning.position
+		health.take_damage(2)
+	elif area.is_in_group("Collectible"):
+		if area.type == "Leaf":
+			leaves.add_leaves(area.value)
+		area.queue_free()
