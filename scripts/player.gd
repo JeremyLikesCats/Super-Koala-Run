@@ -12,9 +12,11 @@ var knocked_back: bool = false
 var just_knocked_back: bool = false
 var jumped: bool = false
 var just_jumped: bool = false
+var bounced: bool = false
+var just_bounced: bool = false
 
 ## Coyote Time
-const COYOTE_TIME_THRESHOLD = 0.06
+const COYOTE_TIME_THRESHOLD = 0.07
 var coyote_time_timer = 0
 var coyote_can_jump = false # Activates only if you just got of an edge. 
 
@@ -35,12 +37,12 @@ var damage_cooldown_time = 0
 var in_damage_cooldown = false
 
 ## Stats
-@export var health: Node
-@export var leaves: Node
+@export var health: HealthComponent
+@export var leaves: LeafComponent
 @export var beginning: Node2D
 
 func _ready() -> void:
-	pass
+	load_data_from_globals()
 
 func _physics_process(delta: float) -> void:
 	if not knocked_back:
@@ -51,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		detect_jumping()
 		
 		# Coyote time
-		if not is_on_floor() and not jumped and not knocked_back:
+		if not is_on_floor() and not jumped and not knocked_back and not bounced:
 			coyote_can_jump = true
 		
 		## While you can jump with coyote time, increment the timer and check if you can still jump
@@ -71,8 +73,6 @@ func _physics_process(delta: float) -> void:
 				incrementing_jump_buffering_timer = true
 				
 		detect_buffered_jumping()
-				
-		# Jump Holding Detection
 		
 		## Basic jump (floor jump)
 		if Input.is_action_pressed("Jump"):
@@ -102,6 +102,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		if is_on_floor():
 			jumped = false
+	
+	if just_bounced:
+		just_bounced = false
+	else:
+		if is_on_floor():
+			bounced = false
 	
 	# Apply knockback horizontal friction
 	velocity.x = move_toward(velocity.x, 0, KNOCKBACK_FRICTION)
@@ -185,6 +191,8 @@ func _on_area_entered(area: Area2D):
 				if area.id != "spiked_turtle":
 					velocity.y = BOUNCE_VELOCITY
 					area.healthComponent.take_damage(1)
+					jump_holding = true
+					bounced = true
 				else:
 					get_hit_by_enemy(area)
 			else:

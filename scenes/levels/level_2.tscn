@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://n31fst6x6oqi" path="res://scripts/LeavesDisplayLabel.gd" id="6_qsp8v"]
 [ext_resource type="Script" uid="uid://bgfqy6744ovgh" path="res://scripts/hearts_display.gd" id="7_nt80m"]
 [ext_resource type="Texture2D" uid="uid://cjq4vd54aiy6m" path="res://assets/GUI/empty_heart.png" id="8_brxtv"]
+[ext_resource type="FontFile" uid="uid://cv6v8r6wsq8ii" path="res://fonts/monogram-extended.ttf" id="9_r88tb"]
 [ext_resource type="Texture2D" uid="uid://s4apyoxunkcn" path="res://assets/GUI/Heart.png" id="9_tv7cl"]
 [ext_resource type="PackedScene" uid="uid://0hqcfvd3o11j" path="res://scenes/lava.tscn" id="13_tv7cl"]
 
@@ -129,7 +130,7 @@ size = Vector2(8, 16)
 size = Vector2(16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_r88tb"]
-font_size = 11
+font = ExtResource("9_r88tb")
 
 [node name="level_2" type="Node2D" unique_id=854472762]
 
@@ -166,6 +167,7 @@ position = Vector2(40, 56)
 beginning = NodePath("../Beginning")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1853719924]
+process_callback = 0
 position_smoothing_enabled = true
 
 [node name="Enemies" type="Node2D" parent="." unique_id=389520614]

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://n31fst6x6oqi" path="res://scripts/LeavesDisplayLabel.gd" id="4_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://0hqcfvd3o11j" path="res://scenes/lava.tscn" id="4_x42e6"]
 [ext_resource type="PackedScene" uid="uid://b7sl0vfiadw3f" path="res://scenes/collectibles/leaf.tscn" id="5_6761a"]
+[ext_resource type="FontFile" uid="uid://d7qdxikbd2ia" path="res://fonts/m5x7.ttf" id="7_dnkej"]
 [ext_resource type="Script" uid="uid://bgfqy6744ovgh" path="res://scripts/hearts_display.gd" id="8_qxy0u"]
 [ext_resource type="Texture2D" uid="uid://cjq4vd54aiy6m" path="res://assets/GUI/empty_heart.png" id="9_excbq"]
 [ext_resource type="Texture2D" uid="uid://s4apyoxunkcn" path="res://assets/GUI/Heart.png" id="10_iav0o"]
@@ -98,7 +99,7 @@ sources/0 = SubResource("TileSetAtlasSource_excbq")
 size = Vector2(16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_k73sm"]
-font_size = 11
+font = ExtResource("7_dnkej")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
 size = Vector2(16, 16)
@@ -114,6 +115,7 @@ position = Vector2(40, 104)
 beginning = NodePath("../Beginning")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=900290926]
+process_callback = 0
 position_smoothing_enabled = true
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1852138234]

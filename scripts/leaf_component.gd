@@ -7,11 +7,6 @@ class_name LeafComponent
 signal leaves_changed(current: int)
 var leaves: int
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	leaves = initial_leaves
-
 func add_leaves(amount: int):
 	leaves += amount
 	leaves_changed.emit(leaves)
