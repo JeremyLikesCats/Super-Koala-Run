@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://c1n6ongkf3e"]
 
 [ext_resource type="Script" uid="uid://b6ircy1emiqfx" path="res://scripts/level_boss.gd" id="1_6mo7m"]
+[ext_resource type="PackedScene" uid="uid://cqhimlflp7irl" path="res://scenes/meteor.tscn" id="2_0k0xf"]
 [ext_resource type="Texture2D" uid="uid://chartvif52rmd" path="res://assets/Tileset.png" id="2_3qrbd"]
 [ext_resource type="PackedScene" uid="uid://rxgtodip5eyo" path="res://scenes/player.tscn" id="2_ix073"]
 [ext_resource type="Script" uid="uid://dgmr6w5it3u7u" path="res://scripts/boss.gd" id="4_0hs51"]
@@ -316,8 +317,10 @@ line_spacing = -3.0
 font = ExtResource("7_i6tg6")
 font_color = Color(0, 0, 0, 1)
 
-[node name="level_boss" type="Node2D" unique_id=921324788 node_paths=PackedStringArray("dialogue_node")]
+[node name="level_boss" type="Node2D" unique_id=921324788 node_paths=PackedStringArray("boss_node", "dialogue_node")]
 script = ExtResource("1_6mo7m")
+meteor_scene = ExtResource("2_0k0xf")
+boss_node = NodePath("Boss")
 dialogue_node = NodePath("CanvasLayer/Dialogue")
 
 [node name="Player" parent="." unique_id=1536402110 instance=ExtResource("2_ix073")]
@@ -337,7 +340,7 @@ player = NodePath("../Player")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss" unique_id=1287482550]
 sprite_frames = SubResource("SpriteFrames_k73sm")
-frame_progress = 0.3075003
+frame_progress = 0.4081362
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boss" unique_id=827282122]
 shape = SubResource("RectangleShape2D_aihig")
