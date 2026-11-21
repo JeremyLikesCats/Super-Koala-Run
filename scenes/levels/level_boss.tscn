@@ -11,7 +11,10 @@
 [ext_resource type="Script" uid="uid://bgfqy6744ovgh" path="res://scripts/hearts_display.gd" id="9_a04ue"]
 [ext_resource type="Texture2D" uid="uid://cjq4vd54aiy6m" path="res://assets/GUI/empty_heart.png" id="10_1vnmc"]
 [ext_resource type="Texture2D" uid="uid://s4apyoxunkcn" path="res://assets/GUI/Heart.png" id="11_0k0xf"]
-[ext_resource type="Texture2D" uid="uid://dix24sr0ljhw7" path="res://assets/ChatboxLeft.png" id="12_i6tg6"]
+[ext_resource type="Texture2D" uid="uid://m8e26cddpyo7" path="res://assets/GUI/Dialogue/Characters/player_left.png" id="12_r23pc"]
+[ext_resource type="Texture2D" uid="uid://x8ktcrjr8ljy" path="res://assets/GUI/Dialogue/Boxes/box_left.png" id="13_1vnmc"]
+[ext_resource type="Texture2D" uid="uid://cflv2uxmqr12o" path="res://assets/GUI/Dialogue/Boxes/box_right.png" id="13_a04ue"]
+[ext_resource type="Texture2D" uid="uid://dnej7mdxplg43" path="res://assets/GUI/Dialogue/Boxes/sedah_box_1_left-Sheet.png" id="15_1vnmc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ix073"]
 texture = ExtResource("2_3qrbd")
@@ -139,6 +142,175 @@ size = Vector2(80, 80)
 [sub_resource type="LabelSettings" id="LabelSettings_hcdyb"]
 font = ExtResource("7_i6tg6")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_chq3d"]
+atlas = ExtResource("12_r23pc")
+
+[sub_resource type="Animation" id="Animation_0k0xf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_r23pc")]
+}
+
+[sub_resource type="Animation" id="Animation_1vnmc"]
+resource_name = "koala_left"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_r23pc")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0k0xf"]
+_data = {
+&"RESET": SubResource("Animation_0k0xf"),
+&"player_left": SubResource("Animation_1vnmc")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgovj"]
+atlas = ExtResource("13_1vnmc")
+
+[sub_resource type="Animation" id="Animation_bis03"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_1vnmc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hcdyb"]
+resource_name = "box_left"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_1vnmc")]
+}
+
+[sub_resource type="Animation" id="Animation_pgovj"]
+resource_name = "box_right"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_a04ue")]
+}
+
+[sub_resource type="Animation" id="Animation_pwklc"]
+resource_name = "sedah_box_1_left"
+length = 0.19999999999999998
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_1vnmc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 160, 0), Rect2(160, 0, 160, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ou52k"]
+resource_name = "sedah_box_1_right"
+length = 0.19999999999999998
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_1vnmc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 160, 0), Rect2(160, 0, 160, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bis03"]
+_data = {
+&"RESET": SubResource("Animation_bis03"),
+&"box_left": SubResource("Animation_hcdyb"),
+&"box_right": SubResource("Animation_pgovj"),
+&"sedah_box_1_left": SubResource("Animation_pwklc"),
+&"sedah_box_1_right": SubResource("Animation_ou52k")
+}
+
 [sub_resource type="LabelSettings" id="LabelSettings_k73sm"]
 line_spacing = -3.0
 font = ExtResource("7_i6tg6")
@@ -165,7 +337,7 @@ player = NodePath("../Player")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss" unique_id=1287482550]
 sprite_frames = SubResource("SpriteFrames_k73sm")
-frame_progress = 0.5133614
+frame_progress = 0.3075003
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boss" unique_id=827282122]
 shape = SubResource("RectangleShape2D_aihig")
@@ -236,13 +408,20 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 160.0
 offset_bottom = 120.0
-texture = ExtResource("12_i6tg6")
+texture = SubResource("AtlasTexture_chq3d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Dialogue/Character" unique_id=1266610566]
+libraries/ = SubResource("AnimationLibrary_0k0xf")
 
 [node name="Box" type="TextureRect" parent="CanvasLayer/Dialogue" unique_id=693411253]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("12_i6tg6")
+offset_right = 160.0
+offset_bottom = 120.0
+texture = SubResource("AtlasTexture_pgovj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Dialogue/Box" unique_id=37595876]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_bis03")
 
 [node name="Label" type="Label" parent="CanvasLayer/Dialogue" unique_id=1103625876]
 layout_mode = 0
