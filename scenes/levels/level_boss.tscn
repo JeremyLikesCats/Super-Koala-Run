@@ -139,8 +139,14 @@ size = Vector2(80, 80)
 [sub_resource type="LabelSettings" id="LabelSettings_hcdyb"]
 font = ExtResource("7_i6tg6")
 
-[node name="level_boss" type="Node2D" unique_id=921324788]
+[sub_resource type="LabelSettings" id="LabelSettings_k73sm"]
+line_spacing = -3.0
+font = ExtResource("7_i6tg6")
+font_color = Color(0, 0, 0, 1)
+
+[node name="level_boss" type="Node2D" unique_id=921324788 node_paths=PackedStringArray("dialogue_node")]
 script = ExtResource("1_6mo7m")
+dialogue_node = NodePath("CanvasLayer/Dialogue")
 
 [node name="Player" parent="." unique_id=1536402110 instance=ExtResource("2_ix073")]
 
@@ -159,7 +165,7 @@ player = NodePath("../Player")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss" unique_id=1287482550]
 sprite_frames = SubResource("SpriteFrames_k73sm")
-frame_progress = 0.8127801
+frame_progress = 0.5133614
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boss" unique_id=827282122]
 shape = SubResource("RectangleShape2D_aihig")
@@ -226,8 +232,23 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Dialogue" unique_id=693411253]
+[node name="Character" type="TextureRect" parent="CanvasLayer/Dialogue" unique_id=80175927]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 120.0
+texture = ExtResource("12_i6tg6")
+
+[node name="Box" type="TextureRect" parent="CanvasLayer/Dialogue" unique_id=693411253]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("12_i6tg6")
+
+[node name="Label" type="Label" parent="CanvasLayer/Dialogue" unique_id=1103625876]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 88.0
+offset_right = 152.0
+offset_bottom = 111.0
+label_settings = SubResource("LabelSettings_k73sm")
+autowrap_mode = 3
