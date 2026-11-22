@@ -1,15 +1,38 @@
 [gd_scene format=3 uid="uid://cswkxr8qt6uu8"]
 
 [ext_resource type="Script" uid="uid://bkbedyasyw2qc" path="res://scripts/snake.gd" id="1_a250b"]
-[ext_resource type="Texture2D" uid="uid://b7jfmouo4aafu" path="res://icon.svg" id="1_uprpt"]
 [ext_resource type="PackedScene" uid="uid://bgr2qymlhr61n" path="res://scenes/health_component.tscn" id="2_lcdrh"]
+[ext_resource type="Texture2D" uid="uid://dg0kpn5gmw01t" path="res://assets/Enemies/Snake.png" id="3_lcdrh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
 size = Vector2(16, 16)
 
-[node name="Snake" type="Area2D" unique_id=625917393 node_paths=PackedStringArray("healthComponent") groups=["Enemy"]]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0y5n7"]
+atlas = ExtResource("3_lcdrh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rqwa"]
+atlas = ExtResource("3_lcdrh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k73sm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0y5n7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rqwa")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Snake" type="Area2D" unique_id=625917393 node_paths=PackedStringArray("healthComponent", "sprite") groups=["Enemy"]]
 script = ExtResource("1_a250b")
 healthComponent = NodePath("Health")
+sprite = NodePath("AnimatedSprite2D")
 
 [node name="Health" parent="." unique_id=41036486 instance=ExtResource("2_lcdrh")]
 max_health = 1
@@ -17,9 +40,8 @@ max_health = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1357587465]
 shape = SubResource("RectangleShape2D_k73sm")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1062913358]
-position = Vector2(2.3841858e-07, 0)
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("1_uprpt")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=858796671]
+sprite_frames = SubResource("SpriteFrames_k73sm")
+frame_progress = 0.88417137
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

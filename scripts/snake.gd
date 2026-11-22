@@ -5,15 +5,21 @@ extends Area2D
 @export var damage = 1
 @export var id = "snake"
 @export var healthComponent: HealthComponent
+@export var sprite: AnimatedSprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	healthComponent.died.connect(die)
+	sprite.play("default")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	position.x += velocity * delta
+	if velocity >= 0:
+		sprite.flip_h = false
+	else:
+		sprite.flip_h = true
 
 
 func _on_area_entered(area: Area2D) -> void:

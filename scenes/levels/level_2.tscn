@@ -14,8 +14,10 @@
 [ext_resource type="FontFile" uid="uid://cv6v8r6wsq8ii" path="res://fonts/monogram-extended.ttf" id="9_r88tb"]
 [ext_resource type="Texture2D" uid="uid://s4apyoxunkcn" path="res://assets/GUI/Heart.png" id="9_tv7cl"]
 [ext_resource type="PackedScene" uid="uid://0hqcfvd3o11j" path="res://scenes/lava.tscn" id="13_tv7cl"]
+[ext_resource type="Script" uid="uid://41rpcib6gkh6" path="res://scripts/flag.gd" id="15_ndlae"]
+[ext_resource type="PackedScene" uid="uid://c1n6ongkf3e" path="res://scenes/levels/level_boss.tscn" id="16_v8d84"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fiq81"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gw1l3"]
 texture = ExtResource("1_g2h2n")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -109,7 +111,7 @@ texture = ExtResource("1_g2h2n")
 
 [sub_resource type="TileSet" id="TileSet_l37oo"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_fiq81")
+sources/0 = SubResource("TileSetAtlasSource_gw1l3")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
 size = Vector2(47, 5)
@@ -131,6 +133,9 @@ size = Vector2(16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_r88tb"]
 font = ExtResource("9_r88tb")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4se4"]
+size = Vector2(16, 16)
 
 [node name="level_2" type="Node2D" unique_id=854472762]
 
@@ -356,5 +361,14 @@ scale = Vector2(2, 1)
 [node name="Beginning" type="Node2D" parent="." unique_id=1773835014]
 position = Vector2(40, 56)
 
+[node name="Flag" type="Area2D" parent="." unique_id=921067407]
+position = Vector2(1448, -24)
+script = ExtResource("15_ndlae")
+next_scene = ExtResource("16_v8d84")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flag" unique_id=2128656181]
+shape = SubResource("RectangleShape2D_p4se4")
+
 [connection signal="body_entered" from="Cloud/Area2D" to="Cloud" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Cloud/Area2D" to="Cloud" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Flag" to="Flag" method="_on_body_entered"]
