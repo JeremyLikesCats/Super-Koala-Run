@@ -10,8 +10,8 @@ It can be accessed on web at https://laundromatcat.itch.io/super-koala-run.
 
 This is based on a platformer game that my friend made a few years back, remade from makecode arcade to Godot. I want to improve the quality of the assets, art and gameplay, and eventually after the basics are done add my own twist. 
 
-So far, I've gotten some of the basics down, with the movement, enemies, and basic levels. 
+So far, I've gotten some of the basics down, with the movement, enemies, and basic levels. On week two, I completed the attacking mechanics of the boss and also refactored movement code to make it much easier to read and more extensible.
 
-There are two enemies so far: the "snake" (which is currently a godot logo) and the spiked turtle, which is a more dangerous version of the snake.
+There are two enemies so far: the "snake" (which is no longer a godot logo!) and the spiked turtle, which is a more dangerous version of the snake.
 
 ![Main menu](assets/StartScreenbackground.png)
