@@ -204,3 +204,6 @@ func _on_area_entered(area: Area2D):
 		if area.type == "Leaf":
 			leaves.add_leaves(area.value)
 		area.queue_free()
+	elif area.is_in_group("Meteor"):
+		get_hit_by_enemy(area)
+	

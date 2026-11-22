@@ -38,6 +38,7 @@ Enemy="Group for enemies."
 Lava=""
 Collectible=""
 Player=""
+Meteor=""
 
 [input]
 

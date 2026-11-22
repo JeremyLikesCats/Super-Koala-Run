@@ -3,7 +3,7 @@ extends Node2D
 var MAP_WIDTH: int
 
 @export var meteor_scene: PackedScene
-const METEOR_HEIGHT: int = -200
+const METEOR_HEIGHT: int = -100
 
 @export var boss_node: Area2D
 
@@ -48,12 +48,11 @@ func _process(delta: float) -> void:
 					show_dialogue_content(dialogues[dialogue_stage])
 		State.STAGE_1:
 			match boss_node.state:
-				boss_node.State.FIREBALL:
-					print("hi")
+				boss_node.State.METEOR:
 					meteor_timer += delta
 					if meteor_timer >= METEOR_INTERVAL:
 						var meteor_position = randi_range(0, MAP_WIDTH)
-						for i in range(5):
+						for i in range(10):
 							var meteor = meteor_scene.instantiate()
 							add_child(meteor)
 							meteor.global_position = Vector2(meteor_position, METEOR_HEIGHT)

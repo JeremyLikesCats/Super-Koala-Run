@@ -7,15 +7,19 @@
 [ext_resource type="Script" uid="uid://dgmr6w5it3u7u" path="res://scripts/boss.gd" id="4_0hs51"]
 [ext_resource type="Texture2D" uid="uid://c3ne3d43sceyj" path="res://assets/Boss1-Sheet.png" id="4_xiw6i"]
 [ext_resource type="Texture2D" uid="uid://njchxfmsrtux" path="res://assets/Collectibles/Leaf.png" id="6_7enqs"]
+[ext_resource type="Texture2D" uid="uid://detjhfol2e8oi" path="res://assets/BossBricks.png" id="6_pgovj"]
 [ext_resource type="FontFile" uid="uid://cv6v8r6wsq8ii" path="res://fonts/monogram-extended.ttf" id="7_i6tg6"]
+[ext_resource type="Texture2D" uid="uid://bq2n67cifneav" path="res://assets/BossCrackedGround-Sheet.png" id="7_pgovj"]
 [ext_resource type="Script" uid="uid://n31fst6x6oqi" path="res://scripts/LeavesDisplayLabel.gd" id="8_r23pc"]
 [ext_resource type="Script" uid="uid://bgfqy6744ovgh" path="res://scripts/hearts_display.gd" id="9_a04ue"]
+[ext_resource type="Script" uid="uid://cu51rudt6b7nh" path="res://scenes/levels/cracked_ground.gd" id="9_bis03"]
 [ext_resource type="Texture2D" uid="uid://cjq4vd54aiy6m" path="res://assets/GUI/empty_heart.png" id="10_1vnmc"]
 [ext_resource type="Texture2D" uid="uid://s4apyoxunkcn" path="res://assets/GUI/Heart.png" id="11_0k0xf"]
 [ext_resource type="Texture2D" uid="uid://m8e26cddpyo7" path="res://assets/GUI/Dialogue/Characters/player_left.png" id="12_r23pc"]
 [ext_resource type="Texture2D" uid="uid://x8ktcrjr8ljy" path="res://assets/GUI/Dialogue/Boxes/box_left.png" id="13_1vnmc"]
 [ext_resource type="Texture2D" uid="uid://cflv2uxmqr12o" path="res://assets/GUI/Dialogue/Boxes/box_right.png" id="13_a04ue"]
 [ext_resource type="Texture2D" uid="uid://dnej7mdxplg43" path="res://assets/GUI/Dialogue/Boxes/sedah_box_1_left-Sheet.png" id="15_1vnmc"]
+[ext_resource type="Script" uid="uid://cx2i2oquelj0y" path="res://scenes/levels/boss_bricks.gd" id="19_pwklc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ix073"]
 texture = ExtResource("2_3qrbd")
@@ -139,6 +143,180 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aihig"]
 size = Vector2(80, 80)
+
+[sub_resource type="Animation" id="Animation_oxome"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:default_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yftjd"]
+resource_name = "flash"
+length = 0.39999999999999997
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:default_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0, 0, 0.12156863)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0mbmi"]
+_data = {
+&"RESET": SubResource("Animation_oxome"),
+&"flash": SubResource("Animation_yftjd")
+}
+
+[sub_resource type="Animation" id="Animation_7hcqv"]
+resource_name = "LEAPING_FALLING"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(6.062871, 1),
+"update": 0,
+"values": [10.0, 96.0]
+}
+
+[sub_resource type="Animation" id="Animation_chq3d"]
+resource_name = "LEAPING_START"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.23325826, 1),
+"update": 0,
+"values": [96.0, 10.0]
+}
+
+[sub_resource type="Animation" id="Animation_sib15"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [96.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7hcqv"]
+_data = {
+&"LEAPING_FALLING": SubResource("Animation_7hcqv"),
+&"LEAPING_START": SubResource("Animation_chq3d"),
+&"RESET": SubResource("Animation_sib15")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bis03"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(0, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwklc"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(160, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou52k"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(320, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sib15"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(480, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hcqv"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(640, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxome"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(640, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yftjd"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(480, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mbmi"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(320, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4yu5"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(160, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_niadk"]
+atlas = ExtResource("7_pgovj")
+region = Rect2(0, 0, 160, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a1rft"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bis03")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwklc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ou52k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sib15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hcqv")
+}],
+"loop": 0,
+"name": &"crack",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxome")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yftjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mbmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u4yu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_niadk")
+}],
+"loop": 0,
+"name": &"uncrack",
+"speed": 5.0
+}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hcdyb"]
 font = ExtResource("7_i6tg6")
@@ -317,6 +495,9 @@ line_spacing = -3.0
 font = ExtResource("7_i6tg6")
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
+size = Vector2(32, 16)
+
 [node name="level_boss" type="Node2D" unique_id=921324788 node_paths=PackedStringArray("boss_node", "dialogue_node")]
 script = ExtResource("1_6mo7m")
 meteor_scene = ExtResource("2_0k0xf")
@@ -333,17 +514,43 @@ position_smoothing_enabled = true
 tile_map_data = PackedByteArray("AAAAAAYAAAAAAAkAAAAAAAcAAAABAAkAAAAAAAgAAAABAAkAAAABAAYAAAAAAAkAAAABAAcAAAABAAkAAAABAAgAAAABAAkAAAACAAYAAAAAAAkAAAACAAcAAAABAAkAAAACAAgAAAABAAkAAAADAAYAAAAAAAkAAAADAAcAAAABAAkAAAADAAgAAAABAAkAAAAEAAYAAAAAAAkAAAAEAAcAAAABAAkAAAAEAAgAAAABAAkAAAAFAAYAAAAAAAkAAAAFAAcAAAABAAkAAAAFAAgAAAABAAkAAAAGAAYAAAAAAAkAAAAGAAcAAAABAAkAAAAGAAgAAAABAAkAAAAHAAYAAAAAAAkAAAAHAAcAAAABAAkAAAAHAAgAAAABAAkAAAAIAAYAAAAAAAkAAAAIAAcAAAABAAkAAAAIAAgAAAABAAkAAAAJAAYAAAAAAAkAAAAJAAcAAAABAAkAAAAJAAgAAAABAAkAAAAKAAYAAAAAAAkAAAAKAAcAAAABAAkAAAAKAAgAAAABAAkAAAALAAYAAAAAAAkAAAALAAcAAAABAAkAAAALAAgAAAABAAkAAAAMAAYAAAAAAAkAAAAMAAcAAAABAAkAAAAMAAgAAAABAAkAAAANAAYAAAAAAAkAAAANAAcAAAABAAkAAAANAAgAAAABAAkAAAAOAAYAAAAAAAkAAAAOAAcAAAABAAkAAAAOAAgAAAABAAkAAAAPAAYAAAAAAAkAAAAPAAcAAAABAAkAAAAPAAgAAAABAAkAAAAQAAYAAAAAAAkAAAAQAAcAAAABAAkAAAAQAAgAAAABAAkAAAARAAYAAAAAAAkAAAARAAcAAAABAAkAAAARAAgAAAABAAkAAAASAAYAAAAAAAkAAAASAAcAAAABAAkAAAASAAgAAAABAAkAAAATAAYAAAAAAAkAAAATAAcAAAABAAkAAAATAAgAAAABAAkAAAAUAAYAAAAAAAkAAAAUAAcAAAABAAkAAAAUAAgAAAABAAkAAAAVAAYAAAAAAAkAAAAVAAcAAAABAAkAAAAVAAgAAAABAAkAAAAWAAYAAAAAAAkAAAAWAAcAAAABAAkAAAAWAAgAAAABAAkAAAAXAAYAAAAAAAkAAAAXAAcAAAABAAkAAAAXAAgAAAABAAkAAAAYAAYAAAAAAAkAAAAYAAcAAAABAAkAAAAYAAgAAAABAAkAAAAZAAYAAAAAAAkAAAAZAAcAAAABAAkAAAAZAAgAAAABAAkAAAAAAAkAAAABAAkAAAAAAAoAAAABAAkAAAABAAkAAAABAAkAAAABAAoAAAABAAkAAAACAAkAAAABAAkAAAACAAoAAAABAAkAAAADAAkAAAABAAkAAAADAAoAAAABAAkAAAAEAAkAAAABAAkAAAAEAAoAAAABAAkAAAAFAAkAAAABAAkAAAAFAAoAAAABAAkAAAAGAAkAAAABAAkAAAAGAAoAAAABAAkAAAAHAAkAAAABAAkAAAAHAAoAAAABAAkAAAAIAAkAAAABAAkAAAAIAAoAAAABAAkAAAAJAAkAAAABAAkAAAAJAAoAAAABAAkAAAAKAAkAAAABAAkAAAAKAAoAAAABAAkAAAALAAkAAAABAAkAAAALAAoAAAABAAkAAAAMAAkAAAABAAkAAAAMAAoAAAABAAkAAAANAAkAAAABAAkAAAANAAoAAAABAAkAAAAOAAkAAAABAAkAAAAOAAoAAAABAAkAAAAPAAkAAAABAAkAAAAPAAoAAAABAAkAAAAQAAkAAAABAAkAAAAQAAoAAAABAAkAAAARAAkAAAABAAkAAAARAAoAAAABAAkAAAASAAkAAAABAAkAAAASAAoAAAABAAkAAAATAAkAAAABAAkAAAATAAoAAAABAAkAAAAUAAkAAAABAAkAAAAUAAoAAAABAAkAAAAVAAkAAAABAAkAAAAVAAoAAAABAAkAAAAWAAkAAAABAAkAAAAWAAoAAAABAAkAAAAXAAkAAAABAAkAAAAXAAoAAAABAAkAAAAYAAkAAAABAAkAAAAYAAoAAAABAAkAAAAZAAkAAAABAAkAAAAZAAoAAAABAAkAAAAaAAYAAAAAAAkAAAAbAAYAAAAAAAkAAAAaAAcAAAABAAkAAAAaAAgAAAABAAkAAAAaAAkAAAABAAkAAAAaAAoAAAABAAkAAAAbAAcAAAABAAkAAAAbAAgAAAABAAkAAAAbAAkAAAABAAkAAAAbAAoAAAABAAkAAAA=")
 tile_set = SubResource("TileSet_xiw6i")
 
-[node name="Boss" type="Area2D" parent="." unique_id=1250026783 node_paths=PackedStringArray("player")]
-position = Vector2(128, 56)
+[node name="Boss" type="Area2D" parent="." unique_id=1250026783 node_paths=PackedStringArray("player", "cracked_ground")]
+position = Vector2(128, 96)
 script = ExtResource("4_0hs51")
 player = NodePath("../Player")
+cracked_ground = NodePath("../CrackedGround")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss" unique_id=1287482550]
+position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_k73sm")
-frame_progress = 0.4081362
+frame_progress = 0.61598265
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boss" unique_id=827282122]
+position = Vector2(0, -40)
 shape = SubResource("RectangleShape2D_aihig")
+
+[node name="RayCast2D" type="RayCast2D" parent="Boss" unique_id=204046146]
+target_position = Vector2(0, 500)
+
+[node name="WarningLine" type="Line2D" parent="Boss" unique_id=637872679]
+width = 4.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Boss/WarningLine" unique_id=52033147]
+libraries/ = SubResource("AnimationLibrary_0mbmi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Boss" unique_id=416351793]
+libraries/ = SubResource("AnimationLibrary_7hcqv")
+
+[node name="CrackedGround" type="AnimatedSprite2D" parent="." unique_id=1860727962 node_paths=PackedStringArray("boss")]
+position = Vector2(128, 96)
+sprite_frames = SubResource("SpriteFrames_a1rft")
+animation = &"crack"
+frame = 4
+frame_progress = 1.0
+speed_scale = 2.0
+script = ExtResource("9_bis03")
+boss = NodePath("../Boss")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1073480693]
 
@@ -434,3 +641,20 @@ offset_right = 152.0
 offset_bottom = 111.0
 label_settings = SubResource("LabelSettings_k73sm")
 autowrap_mode = 3
+
+[node name="BossBricks" type="StaticBody2D" parent="." unique_id=274136260 node_paths=PackedStringArray("boss")]
+script = ExtResource("19_pwklc")
+boss = NodePath("../Boss")
+
+[node name="BossBricks" type="Sprite2D" parent="BossBricks" unique_id=57668937]
+texture = ExtResource("6_pgovj")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossBricks" unique_id=1496571207]
+position = Vector2(48, -8)
+shape = SubResource("RectangleShape2D_k73sm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBricks" unique_id=951193889]
+position = Vector2(-48, -8)
+shape = SubResource("RectangleShape2D_k73sm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossBricks" unique_id=2077515233]
