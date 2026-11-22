@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://detjhfol2e8oi" path="res://assets/BossBricks.png" id="6_pgovj"]
 [ext_resource type="FontFile" uid="uid://cv6v8r6wsq8ii" path="res://fonts/monogram-extended.ttf" id="7_i6tg6"]
 [ext_resource type="Texture2D" uid="uid://bq2n67cifneav" path="res://assets/BossCrackedGround-Sheet.png" id="7_pgovj"]
+[ext_resource type="Script" uid="uid://chicamcjl05as" path="res://scripts/health_component.gd" id="7_sib15"]
 [ext_resource type="Script" uid="uid://n31fst6x6oqi" path="res://scripts/LeavesDisplayLabel.gd" id="8_r23pc"]
 [ext_resource type="Script" uid="uid://bgfqy6744ovgh" path="res://scripts/hearts_display.gd" id="9_a04ue"]
 [ext_resource type="Script" uid="uid://cu51rudt6b7nh" path="res://scenes/levels/cracked_ground.gd" id="9_bis03"]
@@ -19,7 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://x8ktcrjr8ljy" path="res://assets/GUI/Dialogue/Boxes/box_left.png" id="13_1vnmc"]
 [ext_resource type="Texture2D" uid="uid://cflv2uxmqr12o" path="res://assets/GUI/Dialogue/Boxes/box_right.png" id="13_a04ue"]
 [ext_resource type="Texture2D" uid="uid://dnej7mdxplg43" path="res://assets/GUI/Dialogue/Boxes/sedah_box_1_left-Sheet.png" id="15_1vnmc"]
+[ext_resource type="Texture2D" uid="uid://dwuj3xn3bet1d" path="res://assets/GUI/Dialogue/Characters/sedah_right.png" id="16_chq3d"]
 [ext_resource type="Script" uid="uid://cx2i2oquelj0y" path="res://scenes/levels/boss_bricks.gd" id="19_pwklc"]
+[ext_resource type="Texture2D" uid="uid://kc7n7npu0sxx" path="res://assets/BossBricks2.png" id="21_ou52k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ix073"]
 texture = ExtResource("2_3qrbd")
@@ -141,8 +144,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aihig"]
-size = Vector2(80, 80)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7hcqv"]
+radius = 32.0
+height = 80.0
 
 [sub_resource type="Animation" id="Animation_oxome"]
 length = 0.001
@@ -355,10 +359,26 @@ tracks/0/keys = {
 "values": [ExtResource("12_r23pc")]
 }
 
+[sub_resource type="Animation" id="Animation_dslgd"]
+resource_name = "sedah_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_chq3d")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0k0xf"]
 _data = {
 &"RESET": SubResource("Animation_0k0xf"),
-&"player_left": SubResource("Animation_1vnmc")
+&"player_left": SubResource("Animation_1vnmc"),
+&"sedah_right": SubResource("Animation_dslgd")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pgovj"]
@@ -496,7 +516,341 @@ font = ExtResource("7_i6tg6")
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
-size = Vector2(32, 16)
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_0mbmi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [104.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BossBricks2:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [104.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BossBricks2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D4:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionShape2D3:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D2:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../BossBricks2/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../BossBricks2/CollisionShape2D2:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_niadk"]
+resource_name = "fall"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.20306315, 3.7321346),
+"update": 0,
+"values": [48.0, 104.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BossBricks2:position:y")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.17677672, 3.4822044),
+"update": 0,
+"values": [64.0, 104.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.25000003, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BossBricks2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5g7od"]
+resource_name = "invisible"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BossBricks2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u4yu5"]
+resource_name = "rise"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5),
+"transitions": PackedFloat32Array(0.20306315, 1.5157131, 0.08246931),
+"update": 0,
+"values": [104.0, 48.0, 48.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BossBricks2:position:y")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5),
+"transitions": PackedFloat32Array(0.3077861, 1.4142147, 0.1538931),
+"update": 0,
+"values": [104.0, 64.0, 64.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.108818874, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BossBricks2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.13397174, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D4:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionShape2D3:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D2:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../BossBricks2/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../BossBricks2/CollisionShape2D2:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_niadk"]
+_data = {
+&"RESET": SubResource("Animation_0mbmi"),
+&"fall": SubResource("Animation_niadk"),
+&"invisible": SubResource("Animation_5g7od"),
+&"rise": SubResource("Animation_u4yu5")
+}
 
 [node name="level_boss" type="Node2D" unique_id=921324788 node_paths=PackedStringArray("boss_node", "dialogue_node")]
 script = ExtResource("1_6mo7m")
@@ -514,10 +868,12 @@ position_smoothing_enabled = true
 tile_map_data = PackedByteArray("AAAAAAYAAAAAAAkAAAAAAAcAAAABAAkAAAAAAAgAAAABAAkAAAABAAYAAAAAAAkAAAABAAcAAAABAAkAAAABAAgAAAABAAkAAAACAAYAAAAAAAkAAAACAAcAAAABAAkAAAACAAgAAAABAAkAAAADAAYAAAAAAAkAAAADAAcAAAABAAkAAAADAAgAAAABAAkAAAAEAAYAAAAAAAkAAAAEAAcAAAABAAkAAAAEAAgAAAABAAkAAAAFAAYAAAAAAAkAAAAFAAcAAAABAAkAAAAFAAgAAAABAAkAAAAGAAYAAAAAAAkAAAAGAAcAAAABAAkAAAAGAAgAAAABAAkAAAAHAAYAAAAAAAkAAAAHAAcAAAABAAkAAAAHAAgAAAABAAkAAAAIAAYAAAAAAAkAAAAIAAcAAAABAAkAAAAIAAgAAAABAAkAAAAJAAYAAAAAAAkAAAAJAAcAAAABAAkAAAAJAAgAAAABAAkAAAAKAAYAAAAAAAkAAAAKAAcAAAABAAkAAAAKAAgAAAABAAkAAAALAAYAAAAAAAkAAAALAAcAAAABAAkAAAALAAgAAAABAAkAAAAMAAYAAAAAAAkAAAAMAAcAAAABAAkAAAAMAAgAAAABAAkAAAANAAYAAAAAAAkAAAANAAcAAAABAAkAAAANAAgAAAABAAkAAAAOAAYAAAAAAAkAAAAOAAcAAAABAAkAAAAOAAgAAAABAAkAAAAPAAYAAAAAAAkAAAAPAAcAAAABAAkAAAAPAAgAAAABAAkAAAAQAAYAAAAAAAkAAAAQAAcAAAABAAkAAAAQAAgAAAABAAkAAAARAAYAAAAAAAkAAAARAAcAAAABAAkAAAARAAgAAAABAAkAAAASAAYAAAAAAAkAAAASAAcAAAABAAkAAAASAAgAAAABAAkAAAATAAYAAAAAAAkAAAATAAcAAAABAAkAAAATAAgAAAABAAkAAAAUAAYAAAAAAAkAAAAUAAcAAAABAAkAAAAUAAgAAAABAAkAAAAVAAYAAAAAAAkAAAAVAAcAAAABAAkAAAAVAAgAAAABAAkAAAAWAAYAAAAAAAkAAAAWAAcAAAABAAkAAAAWAAgAAAABAAkAAAAXAAYAAAAAAAkAAAAXAAcAAAABAAkAAAAXAAgAAAABAAkAAAAYAAYAAAAAAAkAAAAYAAcAAAABAAkAAAAYAAgAAAABAAkAAAAZAAYAAAAAAAkAAAAZAAcAAAABAAkAAAAZAAgAAAABAAkAAAAAAAkAAAABAAkAAAAAAAoAAAABAAkAAAABAAkAAAABAAkAAAABAAoAAAABAAkAAAACAAkAAAABAAkAAAACAAoAAAABAAkAAAADAAkAAAABAAkAAAADAAoAAAABAAkAAAAEAAkAAAABAAkAAAAEAAoAAAABAAkAAAAFAAkAAAABAAkAAAAFAAoAAAABAAkAAAAGAAkAAAABAAkAAAAGAAoAAAABAAkAAAAHAAkAAAABAAkAAAAHAAoAAAABAAkAAAAIAAkAAAABAAkAAAAIAAoAAAABAAkAAAAJAAkAAAABAAkAAAAJAAoAAAABAAkAAAAKAAkAAAABAAkAAAAKAAoAAAABAAkAAAALAAkAAAABAAkAAAALAAoAAAABAAkAAAAMAAkAAAABAAkAAAAMAAoAAAABAAkAAAANAAkAAAABAAkAAAANAAoAAAABAAkAAAAOAAkAAAABAAkAAAAOAAoAAAABAAkAAAAPAAkAAAABAAkAAAAPAAoAAAABAAkAAAAQAAkAAAABAAkAAAAQAAoAAAABAAkAAAARAAkAAAABAAkAAAARAAoAAAABAAkAAAASAAkAAAABAAkAAAASAAoAAAABAAkAAAATAAkAAAABAAkAAAATAAoAAAABAAkAAAAUAAkAAAABAAkAAAAUAAoAAAABAAkAAAAVAAkAAAABAAkAAAAVAAoAAAABAAkAAAAWAAkAAAABAAkAAAAWAAoAAAABAAkAAAAXAAkAAAABAAkAAAAXAAoAAAABAAkAAAAYAAkAAAABAAkAAAAYAAoAAAABAAkAAAAZAAkAAAABAAkAAAAZAAoAAAABAAkAAAAaAAYAAAAAAAkAAAAbAAYAAAAAAAkAAAAaAAcAAAABAAkAAAAaAAgAAAABAAkAAAAaAAkAAAABAAkAAAAaAAoAAAABAAkAAAAbAAcAAAABAAkAAAAbAAgAAAABAAkAAAAbAAkAAAABAAkAAAAbAAoAAAABAAkAAAA=")
 tile_set = SubResource("TileSet_xiw6i")
 
-[node name="Boss" type="Area2D" parent="." unique_id=1250026783 node_paths=PackedStringArray("player", "cracked_ground")]
+[node name="Boss" type="Area2D" parent="." unique_id=1250026783 node_paths=PackedStringArray("player", "boss_bricks", "healthComponent", "cracked_ground") groups=["Enemy"]]
 position = Vector2(128, 96)
 script = ExtResource("4_0hs51")
 player = NodePath("../Player")
+boss_bricks = NodePath("../BossBricks")
+healthComponent = NodePath("HealthComponent")
 cracked_ground = NodePath("../CrackedGround")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss" unique_id=1287482550]
@@ -527,7 +883,7 @@ frame_progress = 0.61598265
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boss" unique_id=827282122]
 position = Vector2(0, -40)
-shape = SubResource("RectangleShape2D_aihig")
+shape = SubResource("CapsuleShape2D_7hcqv")
 
 [node name="RayCast2D" type="RayCast2D" parent="Boss" unique_id=204046146]
 target_position = Vector2(0, 500)
@@ -542,12 +898,15 @@ libraries/ = SubResource("AnimationLibrary_0mbmi")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Boss" unique_id=416351793]
 libraries/ = SubResource("AnimationLibrary_7hcqv")
 
+[node name="HealthComponent" type="Node" parent="Boss" unique_id=1903445756]
+script = ExtResource("7_sib15")
+metadata/_custom_type_script = "uid://chicamcjl05as"
+
 [node name="CrackedGround" type="AnimatedSprite2D" parent="." unique_id=1860727962 node_paths=PackedStringArray("boss")]
+visible = false
 position = Vector2(128, 96)
 sprite_frames = SubResource("SpriteFrames_a1rft")
 animation = &"crack"
-frame = 4
-frame_progress = 1.0
 speed_scale = 2.0
 script = ExtResource("9_bis03")
 boss = NodePath("../Boss")
@@ -642,19 +1001,60 @@ offset_bottom = 111.0
 label_settings = SubResource("LabelSettings_k73sm")
 autowrap_mode = 3
 
-[node name="BossBricks" type="StaticBody2D" parent="." unique_id=274136260 node_paths=PackedStringArray("boss")]
+[node name="BossBricks" type="StaticBody2D" parent="." unique_id=274136260 node_paths=PackedStringArray("boss", "animation_player")]
+position = Vector2(128, 104)
 script = ExtResource("19_pwklc")
 boss = NodePath("../Boss")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="BossBricks" type="Sprite2D" parent="BossBricks" unique_id=57668937]
 texture = ExtResource("6_pgovj")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossBricks" unique_id=1496571207]
-position = Vector2(48, -8)
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="BossBricks" unique_id=1584559580]
+position = Vector2(72, 0)
 shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+one_way_collision = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BossBricks" unique_id=1662899571]
+position = Vector2(-72, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossBricks" unique_id=1496571207]
+position = Vector2(56, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+one_way_collision = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossBricks" unique_id=951193889]
-position = Vector2(-48, -8)
+position = Vector2(-56, 0)
 shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+one_way_collision = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BossBricks" unique_id=2077515233]
+libraries/ = SubResource("AnimationLibrary_niadk")
+
+[node name="BossBricks2" type="StaticBody2D" parent="." unique_id=1474835539 node_paths=PackedStringArray("boss", "animation_player")]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(128, 104)
+script = ExtResource("19_pwklc")
+boss = NodePath("../Boss")
+animation_player = NodePath("../BossBricks/AnimationPlayer")
+
+[node name="BossBricks" type="Sprite2D" parent="BossBricks2" unique_id=125104148]
+texture = ExtResource("21_ou52k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBricks2" unique_id=2105321215]
+position = Vector2(-88, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossBricks2" unique_id=1077722016]
+position = Vector2(88, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+one_way_collision = true
