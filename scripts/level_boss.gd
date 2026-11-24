@@ -5,6 +5,8 @@ var MAP_WIDTH: int
 @export var meteor_scene: PackedScene
 const METEOR_HEIGHT: int = -100
 
+@export var door_node: Area2D
+
 @export var boss_node: Area2D
 
 @export var dialogue_node: Control
@@ -12,7 +14,11 @@ var dialogue_box: AnimationPlayer
 var dialogue_label: Label
 var dialogue_character: AnimationPlayer
 
-enum State {DIALOGUE, STAGE_1, STAGE_2}
+@export var fade_away_player: AnimationPlayer
+
+@export var boss_fight_initial_position_node: Node2D
+
+enum State {INITIAL, DIALOGUE, STAGE_1, STAGE_2}
 var state: State
 
 var dialogue_stage: int = 0
@@ -29,7 +35,8 @@ func _ready() -> void:
 	dialogue_character = dialogue_node.get_node("Character/AnimationPlayer")
 	dialogue_label = dialogue_node.get_node("Label")
 	MAP_WIDTH = $TileMapLayer.get_used_rect().size.x * 16
-	state = State.DIALOGUE
+	state = State.INITIAL
+	door_node.get_node("Sprite").play("open")
 	show_dialogue()
 	show_dialogue_content(dialogues[dialogue_stage])
 
@@ -37,7 +44,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	match state:
+		State.INITIAL:
+			dialogue_node.visible = false
 		State.DIALOGUE:
+			dialogue_node.visible = true
 			if Input.is_action_just_pressed("dialogue_next"):
 				dialogue_stage += 1
 				if dialogue_stage >= len(dialogues):
@@ -72,3 +82,24 @@ func show_dialogue():
 
 func hide_dialogue():
 	dialogue_node.visible = false
+
+
+func _on_door_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		body.can_move = false
+		body.velocity.x = 50
+		
+		door_node.get_node("Sprite").play("closing")
+		fade_away_player.play("fade_to_black")
+		
+		await fade_away_player.animation_finished
+		body.velocity.x = 10		
+		
+		body.get_node("Camera2D").limit_left = -64
+		body.get_node("Camera2D").limit_right = 448
+		body.position = boss_fight_initial_position_node.position
+		body.can_move = true
+		
+		fade_away_player.play("fade_in")
+		await fade_away_player.animation_finished
+		state = State.DIALOGUE

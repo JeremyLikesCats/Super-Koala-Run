@@ -41,11 +41,13 @@ var in_damage_cooldown = false
 @export var leaves: LeafComponent
 @export var beginning: Node2D
 
+var can_move = true
+
 func _ready() -> void:
 	load_data_from_globals()
 
 func _physics_process(delta: float) -> void:
-	if not knocked_back:
+	if not knocked_back and can_move:
 		# Basic movement
 		detect_sideways_movement()
 		
@@ -110,7 +112,8 @@ func _physics_process(delta: float) -> void:
 			bounced = false
 	
 	# Apply knockback horizontal friction
-	velocity.x = move_toward(velocity.x, 0, KNOCKBACK_FRICTION)
+	if can_move:
+		velocity.x = move_toward(velocity.x, 0, KNOCKBACK_FRICTION)
 	
 	# Damage Cooldown
 	if in_damage_cooldown:
@@ -132,8 +135,15 @@ func detect_sideways_movement():
 	var direction := Input.get_axis("Left", "Right")
 	if direction:
 		velocity.x = direction * SPEED
+		if velocity.x >= 0:
+			$AnimatedSprite2D.flip_h = false
+		else:
+			$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D.play("walk")
 	else:
+		$AnimatedSprite2D.play("stop")
 		velocity.x = move_toward(velocity.x, 0, FRICTION)
+	
 	
 func detect_buffered_jumping():
 	if is_on_floor():
