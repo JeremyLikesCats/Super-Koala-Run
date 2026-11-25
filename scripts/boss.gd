@@ -29,7 +29,12 @@ var leap_timer = 0.0
 
 var initial_run: bool
 
+var amount_of_times_hit = 0
+const HIT_THRESHOLD = 10
+
 @export var cracked_ground: AnimatedSprite2D
+
+var knocked_player_back = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,6 +47,7 @@ func _ready() -> void:
 	animation_player = $AnimationPlayer
 	boss_bricks_animation_player = boss_bricks.get_node("AnimationPlayer")
 	initial_run = true
+	healthComponent.health_changed.connect(health_changed)
 	
 func start_fight():
 	state = State.LEAPING_START
@@ -53,14 +59,24 @@ func _process(delta: float) -> void:
 		State.NONE:
 			pass
 		State.METEOR:
-			
-			meteor_timer += delta
+			if amount_of_times_hit >= HIT_THRESHOLD:
+				animation_player.play("grow")
+				if knocked_player_back == false:
+					player.knockback(Vector2([randi_range(-800, -400), randi_range(400, 800)].pick_random(), -300))
+					knocked_player_back = true
+				await animation_player.animation_finished
+				state = State.LEAPING_START
+				
+			"""meteor_timer += delta
 			if meteor_timer >= METEOR_TIME:
 				state = State.LEAPING_START
-				meteor_timer = 0
+				meteor_timer = 0"""
 		State.LEAPING_START:
-			$AnimatedSprite2D.play("lose_fire")
-			await $AnimatedSprite2D.animation_finished
+			amount_of_times_hit = 0
+			knocked_player_back = false
+			if not initial_run:
+				$AnimatedSprite2D.play("lose_fire")
+				await $AnimatedSprite2D.animation_finished
 			if initial_run == false:
 				boss_bricks_animation_player.play("fall")
 				cracked_ground.play("uncrack")
@@ -70,6 +86,7 @@ func _process(delta: float) -> void:
 			state = State.LEAPING_MIDDLE
 			warning_line.visible = true
 		State.LEAPING_MIDDLE:
+			
 			$AnimatedSprite2D.play("no_fire")
 			if not animation_player.is_playing():
 				position.x = move_toward(position.x, player.global_position.x, MOVE_TOWARD_PLAYER_SPEED * delta)
@@ -99,3 +116,9 @@ func _process(delta: float) -> void:
 			initial_run = false
 			$AnimatedSprite2D.play("grow_fire")
 			
+			
+func health_changed(current, max):
+	amount_of_times_hit += 1
+	if scale.y > 0.5:
+		scale.y -= 0.05
+	

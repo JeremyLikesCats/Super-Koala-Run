@@ -190,43 +190,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a1rft"]
 size = Vector2(16, 136)
 
-[sub_resource type="Animation" id="Animation_iakw3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Player:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-424, 64)]
-}
-
-[sub_resource type="Animation" id="Animation_ketge"]
-resource_name = "walk_into_boss_room"
-length = 3.0000000000000004
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Player:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-88, 88), Vector2(0, 88)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_htktb"]
-_data = {
-&"RESET": SubResource("Animation_iakw3"),
-&"walk_into_boss_room": SubResource("Animation_ketge")
-}
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_htktb"]
 atlas = ExtResource("8_oxome")
 region = Rect2(320, 0, 80, 80)
@@ -428,12 +391,77 @@ tracks/0/keys = {
 "update": 1,
 "values": [96.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_htktb"]
+resource_name = "grow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 1.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7hcqv"]
 _data = {
 &"LEAPING_FALLING": SubResource("Animation_7hcqv"),
 &"LEAPING_START": SubResource("Animation_chq3d"),
-&"RESET": SubResource("Animation_sib15")
+&"RESET": SubResource("Animation_sib15"),
+&"grow": SubResource("Animation_htktb")
+}
+
+[sub_resource type="Animation" id="Animation_iakw3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-424, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_ketge"]
+resource_name = "walk_into_boss_room"
+length = 4.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-88, 88), Vector2(50, 88)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_htktb"]
+_data = {
+&"RESET": SubResource("Animation_iakw3"),
+&"walk_into_boss_room": SubResource("Animation_ketge")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bis03"]
@@ -943,6 +971,78 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D4:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionShape2D3:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D2:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../BossBricks2/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../BossBricks2/CollisionShape2D2:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_5g7od"]
 resource_name = "invisible"
@@ -1107,7 +1207,7 @@ _data = {
 size = Vector2(0, 176)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8g7f"]
-size = Vector2(32, 104)
+size = Vector2(32, 111)
 
 [node name="level_boss" type="Node2D" unique_id=921324788 node_paths=PackedStringArray("door_node", "boss_node", "dialogue_node", "fade_away_player", "boss_fight_initial_position_node", "player")]
 script = ExtResource("1_6mo7m")
@@ -1136,24 +1236,6 @@ animation = &"open"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Door" unique_id=560561963]
 position = Vector2(-120, 28)
 shape = SubResource("RectangleShape2D_a1rft")
-
-[node name="Player" parent="." unique_id=1536402110 instance=ExtResource("2_ix073")]
-position = Vector2(-424, 64)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=628628054]
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_htktb")
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2120260353]
-process_callback = 0
-limit_left = -496
-limit_right = -80
-position_smoothing_enabled = true
-editor_draw_limits = true
-
-[node name="WallOverlay" type="Sprite2D" parent="." unique_id=190863384]
-position = Vector2(-104, 32)
-texture = ExtResource("7_yftjd")
 
 [node name="Boss" type="Area2D" parent="." unique_id=1250026783 node_paths=PackedStringArray("player", "boss_bricks", "healthComponent", "cracked_ground") groups=["Enemy"]]
 position = Vector2(128, 96)
@@ -1188,6 +1270,24 @@ libraries/ = SubResource("AnimationLibrary_7hcqv")
 [node name="HealthComponent" type="Node" parent="Boss" unique_id=1903445756]
 script = ExtResource("7_sib15")
 metadata/_custom_type_script = "uid://chicamcjl05as"
+
+[node name="Player" parent="." unique_id=1536402110 instance=ExtResource("2_ix073")]
+position = Vector2(-424, 64)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=628628054]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_htktb")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2120260353]
+process_callback = 0
+limit_left = -496
+limit_right = -80
+position_smoothing_enabled = true
+editor_draw_limits = true
+
+[node name="WallOverlay" type="Sprite2D" parent="." unique_id=190863384]
+position = Vector2(-104, 32)
+texture = ExtResource("7_yftjd")
 
 [node name="CrackedGround" type="AnimatedSprite2D" parent="." unique_id=1860727962 node_paths=PackedStringArray("boss")]
 position = Vector2(128, 96)
@@ -1359,7 +1459,7 @@ shape = SubResource("RectangleShape2D_kqcpd")
 [node name="BossEntranceWall" type="StaticBody2D" parent="." unique_id=1868774722]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossEntranceWall" unique_id=1403874747]
-position = Vector2(-112, -28)
+position = Vector2(-112, -24.5)
 shape = SubResource("RectangleShape2D_n8g7f")
 
 [connection signal="body_entered" from="Door" to="." method="_on_door_body_entered"]
