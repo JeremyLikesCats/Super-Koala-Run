@@ -33,7 +33,7 @@ var initial_run: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	state = State.METEOR
+	state = State.NONE
 	raycast = $RayCast2D
 	raycast.add_exception(player)
 	warning_line = $WarningLine
@@ -44,7 +44,7 @@ func _ready() -> void:
 	initial_run = true
 	
 func start_fight():
-	state = State.METEOR
+	state = State.LEAPING_START
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

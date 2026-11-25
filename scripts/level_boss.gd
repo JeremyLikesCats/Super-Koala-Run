@@ -18,6 +18,7 @@ var dialogue_character: AnimationPlayer
 
 @export var boss_fight_initial_position_node: Node2D
 
+@export var player: CharacterBody2D
 enum State {INITIAL, DIALOGUE, STAGE_1, STAGE_2}
 var state: State
 
@@ -47,6 +48,7 @@ func _process(delta: float) -> void:
 		State.INITIAL:
 			dialogue_node.visible = false
 		State.DIALOGUE:
+			player.can_move = false
 			dialogue_node.visible = true
 			if Input.is_action_just_pressed("dialogue_next"):
 				dialogue_stage += 1
@@ -54,14 +56,16 @@ func _process(delta: float) -> void:
 					state = State.STAGE_1
 					boss_node.start_fight()
 					hide_dialogue()
+					player.can_move = true
 				else:
 					show_dialogue_content(dialogues[dialogue_stage])
+			
 		State.STAGE_1:
 			match boss_node.state:
 				boss_node.State.METEOR:
 					meteor_timer += delta
 					if meteor_timer >= METEOR_INTERVAL:
-						var meteor_position = randi_range(0, MAP_WIDTH)
+						var meteor_position = -64 + randi_range(0, MAP_WIDTH)
 						for i in range(10):
 							var meteor = meteor_scene.instantiate()
 							add_child(meteor)
@@ -86,20 +90,21 @@ func hide_dialogue():
 
 func _on_door_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		body.can_move = false
-		body.velocity.x = 50
+		player.can_move = false
+		player.velocity.x = 50
 		
 		door_node.get_node("Sprite").play("closing")
 		fade_away_player.play("fade_to_black")
 		
 		await fade_away_player.animation_finished
-		body.velocity.x = 10		
 		
-		body.get_node("Camera2D").limit_left = -64
-		body.get_node("Camera2D").limit_right = 448
-		body.position = boss_fight_initial_position_node.position
-		body.can_move = true
+		
+		player.get_node("Camera2D").limit_left = -64
+		player.get_node("Camera2D").limit_right = 448
+		player.position = boss_fight_initial_position_node.position
 		
 		fade_away_player.play("fade_in")
 		await fade_away_player.animation_finished
+		player.get_node("AnimationPlayer").play("walk_into_boss_room")
+		await player.get_node("AnimationPlayer").animation_finished
 		state = State.DIALOGUE

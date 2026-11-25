@@ -87,7 +87,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			jump_hold_timer = 0
 			jump_holding = false
-		
+	
+	
 	# Gravity + Jump Holding
 	if not is_on_floor():
 		apply_gravity(delta)
@@ -201,6 +202,7 @@ func _on_area_entered(area: Area2D):
 				if area.id != "spiked_turtle":
 					velocity.y = BOUNCE_VELOCITY
 					area.healthComponent.take_damage(1)
+					print(area.healthComponent.current_health)
 					jump_holding = true
 					bounced = true
 				else:
