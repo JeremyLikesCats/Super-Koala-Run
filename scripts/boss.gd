@@ -53,11 +53,14 @@ func _process(delta: float) -> void:
 		State.NONE:
 			pass
 		State.METEOR:
+			
 			meteor_timer += delta
 			if meteor_timer >= METEOR_TIME:
 				state = State.LEAPING_START
 				meteor_timer = 0
 		State.LEAPING_START:
+			$AnimatedSprite2D.play("lose_fire")
+			await $AnimatedSprite2D.animation_finished
 			if initial_run == false:
 				boss_bricks_animation_player.play("fall")
 				cracked_ground.play("uncrack")
@@ -67,6 +70,7 @@ func _process(delta: float) -> void:
 			state = State.LEAPING_MIDDLE
 			warning_line.visible = true
 		State.LEAPING_MIDDLE:
+			$AnimatedSprite2D.play("no_fire")
 			if not animation_player.is_playing():
 				position.x = move_toward(position.x, player.global_position.x, MOVE_TOWARD_PLAYER_SPEED * delta)
 				var collision_point = warning_line.to_local(raycast.get_collision_point())
@@ -93,4 +97,5 @@ func _process(delta: float) -> void:
 			cracked_ground.play("crack")
 			boss_bricks_animation_player.play("rise")
 			initial_run = false
+			$AnimatedSprite2D.play("grow_fire")
 			
