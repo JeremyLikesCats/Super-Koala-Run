@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 ## Basic movement constants
-const SPEED = 110.0
+const SPEED = 120.0
 const FRICTION = 20.0
 const JUMP_VELOCITY = -220.0
 const BOUNCE_VELOCITY = -210.0

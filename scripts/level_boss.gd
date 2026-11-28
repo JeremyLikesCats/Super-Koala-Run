@@ -48,12 +48,14 @@ func _process(delta: float) -> void:
 		State.INITIAL:
 			dialogue_node.visible = false
 		State.DIALOGUE:
+			
 			player.can_move = false
 			dialogue_node.visible = true
 			if Input.is_action_just_pressed("dialogue_next"):
 				dialogue_stage += 1
 				if dialogue_stage >= len(dialogues):
 					state = State.STAGE_1
+					fade_away_player.play("undim")
 					boss_node.start_fight()
 					hide_dialogue()
 					player.can_move = true
@@ -99,7 +101,7 @@ func _on_door_body_entered(body: Node2D) -> void:
 		await fade_away_player.animation_finished
 		
 		
-		player.get_node("Camera2D").limit_left = -64
+		player.get_node("Camera2D").limit_left = -80
 		player.get_node("Camera2D").limit_right = 448
 		player.position = boss_fight_initial_position_node.position
 		
@@ -107,4 +109,6 @@ func _on_door_body_entered(body: Node2D) -> void:
 		await fade_away_player.animation_finished
 		player.get_node("AnimationPlayer").play("walk_into_boss_room")
 		await player.get_node("AnimationPlayer").animation_finished
+		fade_away_player.play("dim")
+		await fade_away_player.animation_finished
 		state = State.DIALOGUE

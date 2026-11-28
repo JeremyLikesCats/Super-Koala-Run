@@ -444,7 +444,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ketge"]
 resource_name = "walk_into_boss_room"
-length = 4.2
+length = 3.5000000000000004
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -546,253 +546,6 @@ animations = [{
 "name": &"uncrack",
 "speed": 5.0
 }]
-
-[sub_resource type="LabelSettings" id="LabelSettings_hcdyb"]
-font = ExtResource("7_i6tg6")
-
-[sub_resource type="Animation" id="Animation_xumcf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_x5qxs"]
-resource_name = "fade_in"
-length = 3.0000000000000004
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1.6, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_87wcp"]
-resource_name = "fade_away"
-length = 3.0000000000000004
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1.6, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xumcf"]
-_data = {
-&"RESET": SubResource("Animation_xumcf"),
-&"fade_in": SubResource("Animation_x5qxs"),
-&"fade_to_black": SubResource("Animation_87wcp")
-}
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_chq3d"]
-atlas = ExtResource("12_r23pc")
-
-[sub_resource type="Animation" id="Animation_0k0xf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:atlas")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("12_r23pc")]
-}
-
-[sub_resource type="Animation" id="Animation_1vnmc"]
-resource_name = "koala_left"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:atlas")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("12_r23pc")]
-}
-
-[sub_resource type="Animation" id="Animation_dslgd"]
-resource_name = "sedah_right"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:atlas")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("16_chq3d")]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0k0xf"]
-_data = {
-&"RESET": SubResource("Animation_0k0xf"),
-&"player_left": SubResource("Animation_1vnmc"),
-&"sedah_right": SubResource("Animation_dslgd")
-}
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pgovj"]
-atlas = ExtResource("13_1vnmc")
-
-[sub_resource type="Animation" id="Animation_bis03"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Box:texture:atlas")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("13_1vnmc")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Box:texture:region")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(0, 0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_hcdyb"]
-resource_name = "box_left"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Box:texture:atlas")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("13_1vnmc")]
-}
-
-[sub_resource type="Animation" id="Animation_pgovj"]
-resource_name = "box_right"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Box:texture:atlas")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("13_a04ue")]
-}
-
-[sub_resource type="Animation" id="Animation_pwklc"]
-resource_name = "sedah_box_1_left"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Box:texture:atlas")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("15_1vnmc")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Box:texture:region")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(0, 0, 160, 0), Rect2(160, 0, 160, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_ou52k"]
-resource_name = "sedah_box_1_right"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Box:texture:atlas")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("15_1vnmc")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Box:texture:region")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(0, 0, 160, 0), Rect2(160, 0, 160, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bis03"]
-_data = {
-&"RESET": SubResource("Animation_bis03"),
-&"box_left": SubResource("Animation_hcdyb"),
-&"box_right": SubResource("Animation_pgovj"),
-&"sedah_box_1_left": SubResource("Animation_pwklc"),
-&"sedah_box_1_right": SubResource("Animation_ou52k")
-}
-
-[sub_resource type="LabelSettings" id="LabelSettings_k73sm"]
-line_spacing = -3.0
-font = ExtResource("7_i6tg6")
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k73sm"]
 size = Vector2(16, 16)
@@ -1206,8 +959,304 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kqcpd"]
 size = Vector2(0, 176)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34xbh"]
+size = Vector2(0, 187)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8g7f"]
 size = Vector2(32, 111)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hcdyb"]
+font = ExtResource("7_i6tg6")
+
+[sub_resource type="Animation" id="Animation_xumcf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_xncab"]
+resource_name = "dim"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 0.050765734),
+"update": 0,
+"values": [0.0, 0.3]
+}
+
+[sub_resource type="Animation" id="Animation_x5qxs"]
+resource_name = "fade_in"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.6, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_87wcp"]
+resource_name = "fade_away"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.6, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_f3p5f"]
+resource_name = "undim"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CanvasLayer/GUI/FadeAway:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 0.050765734),
+"update": 0,
+"values": [0.3, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xumcf"]
+_data = {
+&"RESET": SubResource("Animation_xumcf"),
+&"dim": SubResource("Animation_xncab"),
+&"fade_in": SubResource("Animation_x5qxs"),
+&"fade_to_black": SubResource("Animation_87wcp"),
+&"undim": SubResource("Animation_f3p5f")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chq3d"]
+atlas = ExtResource("12_r23pc")
+
+[sub_resource type="Animation" id="Animation_0k0xf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_r23pc")]
+}
+
+[sub_resource type="Animation" id="Animation_1vnmc"]
+resource_name = "koala_left"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_r23pc")]
+}
+
+[sub_resource type="Animation" id="Animation_dslgd"]
+resource_name = "sedah_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_chq3d")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0k0xf"]
+_data = {
+&"RESET": SubResource("Animation_0k0xf"),
+&"player_left": SubResource("Animation_1vnmc"),
+&"sedah_right": SubResource("Animation_dslgd")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgovj"]
+atlas = ExtResource("13_1vnmc")
+
+[sub_resource type="Animation" id="Animation_bis03"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_1vnmc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hcdyb"]
+resource_name = "box_left"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_1vnmc")]
+}
+
+[sub_resource type="Animation" id="Animation_pgovj"]
+resource_name = "box_right"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_a04ue")]
+}
+
+[sub_resource type="Animation" id="Animation_pwklc"]
+resource_name = "sedah_box_1_left"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_1vnmc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 192, 0), Rect2(192, 0, 192, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ou52k"]
+resource_name = "sedah_box_1_right"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box:texture:atlas")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_1vnmc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 192, 0), Rect2(192, 0, 192, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bis03"]
+_data = {
+&"RESET": SubResource("Animation_bis03"),
+&"box_left": SubResource("Animation_hcdyb"),
+&"box_right": SubResource("Animation_pgovj"),
+&"sedah_box_1_left": SubResource("Animation_pwklc"),
+&"sedah_box_1_right": SubResource("Animation_ou52k")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_k73sm"]
+line_spacing = -3.0
+font = ExtResource("7_i6tg6")
+font_color = Color(0, 0, 0, 1)
 
 [node name="level_boss" type="Node2D" unique_id=921324788 node_paths=PackedStringArray("door_node", "boss_node", "dialogue_node", "fade_away_player", "boss_fight_initial_position_node", "player")]
 script = ExtResource("1_6mo7m")
@@ -1220,7 +1269,7 @@ boss_fight_initial_position_node = NodePath("boss_fight_inital_position")
 player = NodePath("Player")
 
 [node name="boss_fight_inital_position" type="Node2D" parent="." unique_id=265298662]
-position = Vector2(-72, 88)
+position = Vector2(-88, 88)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1087399825]
 tile_map_data = PackedByteArray("AAAAAAYAAAAAAAkAAAAAAAcAAAABAAkAAAAAAAgAAAABAAkAAAABAAYAAAAAAAkAAAABAAcAAAABAAkAAAABAAgAAAABAAkAAAACAAYAAAAAAAkAAAACAAcAAAABAAkAAAACAAgAAAABAAkAAAADAAYAAAAAAAkAAAADAAcAAAABAAkAAAADAAgAAAABAAkAAAAEAAYAAAAAAAkAAAAEAAcAAAABAAkAAAAEAAgAAAABAAkAAAAFAAYAAAAAAAkAAAAFAAcAAAABAAkAAAAFAAgAAAABAAkAAAAGAAYAAAAAAAkAAAAGAAcAAAABAAkAAAAGAAgAAAABAAkAAAAHAAYAAAAAAAkAAAAHAAcAAAABAAkAAAAHAAgAAAABAAkAAAAIAAYAAAAAAAkAAAAIAAcAAAABAAkAAAAIAAgAAAABAAkAAAAJAAYAAAAAAAkAAAAJAAcAAAABAAkAAAAJAAgAAAABAAkAAAAKAAYAAAAAAAkAAAAKAAcAAAABAAkAAAAKAAgAAAABAAkAAAALAAYAAAAAAAkAAAALAAcAAAABAAkAAAALAAgAAAABAAkAAAAMAAYAAAAAAAkAAAAMAAcAAAABAAkAAAAMAAgAAAABAAkAAAANAAYAAAAAAAkAAAANAAcAAAABAAkAAAANAAgAAAABAAkAAAAOAAYAAAAAAAkAAAAOAAcAAAABAAkAAAAOAAgAAAABAAkAAAAPAAYAAAAAAAkAAAAPAAcAAAABAAkAAAAPAAgAAAABAAkAAAAQAAYAAAAAAAkAAAAQAAcAAAABAAkAAAAQAAgAAAABAAkAAAARAAYAAAAAAAkAAAARAAcAAAABAAkAAAARAAgAAAABAAkAAAASAAYAAAAAAAkAAAASAAcAAAABAAkAAAASAAgAAAABAAkAAAATAAYAAAAAAAkAAAATAAcAAAABAAkAAAATAAgAAAABAAkAAAAUAAYAAAAAAAkAAAAUAAcAAAABAAkAAAAUAAgAAAABAAkAAAAVAAYAAAAAAAkAAAAVAAcAAAABAAkAAAAVAAgAAAABAAkAAAAWAAYAAAAAAAkAAAAWAAcAAAABAAkAAAAWAAgAAAABAAkAAAAXAAYAAAAAAAkAAAAXAAcAAAABAAkAAAAXAAgAAAABAAkAAAAYAAYAAAAAAAkAAAAYAAcAAAABAAkAAAAYAAgAAAABAAkAAAAZAAYAAAAAAAkAAAAZAAcAAAABAAkAAAAZAAgAAAABAAkAAAAAAAkAAAABAAkAAAAAAAoAAAABAAkAAAABAAkAAAABAAkAAAABAAoAAAABAAkAAAACAAkAAAABAAkAAAACAAoAAAABAAkAAAADAAkAAAABAAkAAAADAAoAAAABAAkAAAAEAAkAAAABAAkAAAAEAAoAAAABAAkAAAAFAAkAAAABAAkAAAAFAAoAAAABAAkAAAAGAAkAAAABAAkAAAAGAAoAAAABAAkAAAAHAAkAAAABAAkAAAAHAAoAAAABAAkAAAAIAAkAAAABAAkAAAAIAAoAAAABAAkAAAAJAAkAAAABAAkAAAAJAAoAAAABAAkAAAAKAAkAAAABAAkAAAAKAAoAAAABAAkAAAALAAkAAAABAAkAAAALAAoAAAABAAkAAAAMAAkAAAABAAkAAAAMAAoAAAABAAkAAAANAAkAAAABAAkAAAANAAoAAAABAAkAAAAOAAkAAAABAAkAAAAOAAoAAAABAAkAAAAPAAkAAAABAAkAAAAPAAoAAAABAAkAAAAQAAkAAAABAAkAAAAQAAoAAAABAAkAAAARAAkAAAABAAkAAAARAAoAAAABAAkAAAASAAkAAAABAAkAAAASAAoAAAABAAkAAAATAAkAAAABAAkAAAATAAoAAAABAAkAAAAUAAkAAAABAAkAAAAUAAoAAAABAAkAAAAVAAkAAAABAAkAAAAVAAoAAAABAAkAAAAWAAkAAAABAAkAAAAWAAoAAAABAAkAAAAXAAkAAAABAAkAAAAXAAoAAAABAAkAAAAYAAkAAAABAAkAAAAYAAoAAAABAAkAAAAZAAkAAAABAAkAAAAZAAoAAAABAAkAAAAaAAYAAAAAAAkAAAAbAAYAAAAAAAkAAAAaAAcAAAABAAkAAAAaAAgAAAABAAkAAAAaAAkAAAABAAkAAAAaAAoAAAABAAkAAAAbAAcAAAABAAkAAAAbAAgAAAABAAkAAAAbAAkAAAABAAkAAAAbAAoAAAABAAkAAAD0/wYAAAAAAAkAAAD1/wYAAAAAAAkAAAD2/wYAAAAAAAkAAAD3/wYAAAAAAAkAAAD4/wYAAAAAAAkAAAD5/wYAAAAAAAkAAAD6/wYAAAAAAAkAAAD7/wYAAAAAAAkAAAD8/wYAAAAAAAkAAAD9/wYAAAAAAAkAAAD+/wYAAAAAAAkAAAD//wYAAAAAAAkAAADz/wcAAAABAAkAAADz/wgAAAABAAkAAADz/wkAAAABAAkAAADz/woAAAABAAkAAAD0/wcAAAABAAkAAAD0/wgAAAABAAkAAAD0/wkAAAABAAkAAAD0/woAAAABAAkAAAD1/wcAAAABAAkAAAD1/wgAAAABAAkAAAD1/wkAAAABAAkAAAD1/woAAAABAAkAAAD2/wcAAAABAAkAAAD2/wgAAAABAAkAAAD2/wkAAAABAAkAAAD2/woAAAABAAkAAAD3/wcAAAABAAkAAAD3/wgAAAABAAkAAAD3/wkAAAABAAkAAAD3/woAAAABAAkAAAD4/wcAAAABAAkAAAD4/wgAAAABAAkAAAD4/wkAAAABAAkAAAD4/woAAAABAAkAAAD5/wcAAAABAAkAAAD5/wgAAAABAAkAAAD5/wkAAAABAAkAAAD5/woAAAABAAkAAAD6/wcAAAABAAkAAAD6/wgAAAABAAkAAAD6/wkAAAABAAkAAAD6/woAAAABAAkAAAD7/wcAAAABAAkAAAD7/wgAAAABAAkAAAD7/wkAAAABAAkAAAD7/woAAAABAAkAAAD8/wcAAAABAAkAAAD8/wgAAAABAAkAAAD8/wkAAAABAAkAAAD8/woAAAABAAkAAAD9/wcAAAABAAkAAAD9/wgAAAABAAkAAAD9/wkAAAABAAkAAAD9/woAAAABAAkAAAD+/wcAAAABAAkAAAD+/wgAAAABAAkAAAD+/wkAAAABAAkAAAD+/woAAAABAAkAAAD//wcAAAABAAkAAAD//wgAAAABAAkAAAD//wkAAAABAAkAAAD//woAAAABAAkAAADy/wcAAAABAAkAAADy/wgAAAABAAkAAADy/wkAAAABAAkAAADy/woAAAABAAkAAADw/wYAAAAAAAkAAADv/wYAAAAAAAkAAADr/wYAAAAAAAkAAADq/wYAAAAAAAkAAADm/wYAAAAAAAkAAADl/wYAAAAAAAkAAADk/wYAAAAAAAkAAADx/wgAAAABAAkAAADx/wkAAAABAAkAAADx/woAAAABAAkAAADx/wcAAAABAAkAAADw/wcAAAABAAkAAADv/wcAAAABAAkAAADu/wcAAAABAAkAAADt/wcAAAABAAkAAADs/wcAAAABAAkAAADr/wcAAAABAAkAAADq/wcAAAABAAkAAADp/wcAAAABAAkAAADo/wcAAAABAAkAAADn/wcAAAABAAkAAADm/wcAAAABAAkAAADl/wcAAAABAAkAAADk/wcAAAABAAkAAADk/wgAAAABAAkAAADk/wkAAAABAAkAAADk/woAAAABAAkAAADl/woAAAABAAkAAADm/woAAAABAAkAAADn/woAAAABAAkAAADo/woAAAABAAkAAADp/woAAAABAAkAAADq/woAAAABAAkAAADr/woAAAABAAkAAADs/woAAAABAAkAAADt/woAAAABAAkAAADu/woAAAABAAkAAADv/woAAAABAAkAAADw/woAAAABAAkAAADw/wkAAAABAAkAAADv/wkAAAABAAkAAADu/wkAAAABAAkAAADt/wkAAAABAAkAAADs/wkAAAABAAkAAADr/wkAAAABAAkAAADq/wkAAAABAAkAAADp/wkAAAABAAkAAADo/wkAAAABAAkAAADn/wkAAAABAAkAAADm/wkAAAABAAkAAADl/wkAAAABAAkAAADl/wgAAAABAAkAAADm/wgAAAABAAkAAADn/wgAAAABAAkAAADo/wgAAAABAAkAAADp/wgAAAABAAkAAADq/wgAAAABAAkAAADr/wgAAAABAAkAAADs/wgAAAABAAkAAADt/wgAAAABAAkAAADu/wgAAAABAAkAAADv/wgAAAABAAkAAADw/wgAAAABAAkAAAD3/wUAAAABAAoAAAD3/wQAAAABAAoAAAD3/wMAAAABAAoAAAD3/wIAAAABAAoAAAD3/wEAAAABAAoAAAD3/wAAAAABAAoAAAD3//3/AAABAAoAAAD3//7/AAABAAoAAAD3////AAABAAoAAAD4//3/AAABAAoAAAD4//7/AAABAAoAAAD4////AAABAAoAAAD4/wAAAAABAAoAAAD4/wEAAAABAAoAAAD5/wAAAAABAAoAAAD5////AAABAAoAAAD5//7/AAABAAoAAAD5//3/AAABAAoAAAD6//3/AAABAAoAAAD6//7/AAABAAoAAAD6////AAABAAoAAAD6/wAAAAABAAoAAAD6/wEAAAABAAoAAAD6/wIAAAABAAoAAAD6/wMAAAABAAoAAAD6/wQAAAABAAoAAAD6/wUAAAABAAoAAAD3//z/AAABAAoAAAD4//z/AAABAAoAAAD5//z/AAABAAoAAAD6//z/AAABAAoAAAD3//v/AAABAAoAAAD4//v/AAABAAoAAAD5//v/AAABAAoAAAD6//v/AAABAAoAAAD5/wEAAAABAAoAAAD5/wIAAAABAAoAAAD5/wMAAAABAAoAAAD5/wQAAAABAAoAAAD5/wUAAAABAAoAAAD4/wUAAAABAAoAAAD4/wQAAAABAAoAAAD4/wMAAAABAAoAAAD4/wIAAAABAAoAAADj/wYAAAAAAAkAAADi/wYAAAAAAAkAAADh/wYAAAAAAAkAAADh/wcAAAABAAkAAADi/wcAAAABAAkAAADj/wcAAAABAAkAAADj/wgAAAABAAkAAADj/wkAAAABAAkAAADi/woAAAABAAkAAADi/wkAAAABAAkAAADi/wgAAAABAAkAAADh/wgAAAABAAkAAADh/wkAAAABAAkAAADh/woAAAABAAkAAADj/woAAAABAAkAAAA=")
@@ -1248,7 +1297,6 @@ cracked_ground = NodePath("../CrackedGround")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boss" unique_id=1287482550]
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_k73sm")
-animation = &"lose_fire"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boss" unique_id=827282122]
 position = Vector2(0, -40)
@@ -1296,6 +1344,74 @@ animation = &"crack"
 speed_scale = 2.0
 script = ExtResource("9_bis03")
 boss = NodePath("../Boss")
+
+[node name="BossBricks" type="StaticBody2D" parent="." unique_id=274136260 node_paths=PackedStringArray("boss", "animation_player")]
+position = Vector2(128, 104)
+script = ExtResource("19_pwklc")
+boss = NodePath("../Boss")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="BossBricks" type="Sprite2D" parent="BossBricks" unique_id=57668937]
+texture = ExtResource("6_pgovj")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="BossBricks" unique_id=1584559580]
+position = Vector2(72, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BossBricks" unique_id=1662899571]
+position = Vector2(-72, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossBricks" unique_id=1496571207]
+position = Vector2(56, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBricks" unique_id=951193889]
+position = Vector2(-56, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossBricks" unique_id=2077515233]
+libraries/ = SubResource("AnimationLibrary_niadk")
+
+[node name="BossBricks2" type="StaticBody2D" parent="." unique_id=1474835539 node_paths=PackedStringArray("boss", "animation_player")]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(128, 104)
+script = ExtResource("19_pwklc")
+boss = NodePath("../Boss")
+animation_player = NodePath("../BossBricks/AnimationPlayer")
+
+[node name="BossBricks" type="Sprite2D" parent="BossBricks2" unique_id=125104148]
+texture = ExtResource("21_ou52k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBricks2" unique_id=2105321215]
+position = Vector2(-88, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossBricks2" unique_id=1077722016]
+position = Vector2(88, 0)
+shape = SubResource("RectangleShape2D_k73sm")
+disabled = true
+
+[node name="BossWall" type="StaticBody2D" parent="." unique_id=1454672]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossWall" unique_id=1669780670]
+position = Vector2(-80, 8)
+shape = SubResource("RectangleShape2D_kqcpd")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossWall" unique_id=152088712]
+position = Vector2(448, 2.5)
+shape = SubResource("RectangleShape2D_34xbh")
+
+[node name="BossEntranceWall" type="StaticBody2D" parent="." unique_id=1868774722]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossEntranceWall" unique_id=1403874747]
+position = Vector2(-112, -24.5)
+shape = SubResource("RectangleShape2D_n8g7f")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1073480693]
 
@@ -1356,8 +1472,8 @@ stretch_mode = 1
 [node name="FadeAway" type="ColorRect" parent="CanvasLayer/GUI" unique_id=911371625]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_right = 160.0
-offset_bottom = 120.0
+offset_right = 192.0
+offset_bottom = 128.0
 color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/GUI/FadeAway" unique_id=1427581615]
@@ -1391,75 +1507,11 @@ libraries/ = SubResource("AnimationLibrary_bis03")
 
 [node name="Label" type="Label" parent="CanvasLayer/Dialogue" unique_id=1103625876]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 26.0
 offset_top = 88.0
 offset_right = 152.0
 offset_bottom = 111.0
 label_settings = SubResource("LabelSettings_k73sm")
 autowrap_mode = 3
-
-[node name="BossBricks" type="StaticBody2D" parent="." unique_id=274136260 node_paths=PackedStringArray("boss", "animation_player")]
-position = Vector2(128, 104)
-script = ExtResource("19_pwklc")
-boss = NodePath("../Boss")
-animation_player = NodePath("AnimationPlayer")
-
-[node name="BossBricks" type="Sprite2D" parent="BossBricks" unique_id=57668937]
-texture = ExtResource("6_pgovj")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="BossBricks" unique_id=1584559580]
-position = Vector2(72, 0)
-shape = SubResource("RectangleShape2D_k73sm")
-disabled = true
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="BossBricks" unique_id=1662899571]
-position = Vector2(-72, 0)
-shape = SubResource("RectangleShape2D_k73sm")
-disabled = true
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossBricks" unique_id=1496571207]
-position = Vector2(56, 0)
-shape = SubResource("RectangleShape2D_k73sm")
-disabled = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBricks" unique_id=951193889]
-position = Vector2(-56, 0)
-shape = SubResource("RectangleShape2D_k73sm")
-disabled = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BossBricks" unique_id=2077515233]
-libraries/ = SubResource("AnimationLibrary_niadk")
-
-[node name="BossBricks2" type="StaticBody2D" parent="." unique_id=1474835539 node_paths=PackedStringArray("boss", "animation_player")]
-self_modulate = Color(1, 1, 1, 0)
-position = Vector2(128, 104)
-script = ExtResource("19_pwklc")
-boss = NodePath("../Boss")
-animation_player = NodePath("../BossBricks/AnimationPlayer")
-
-[node name="BossBricks" type="Sprite2D" parent="BossBricks2" unique_id=125104148]
-texture = ExtResource("21_ou52k")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BossBricks2" unique_id=2105321215]
-position = Vector2(-88, 0)
-shape = SubResource("RectangleShape2D_k73sm")
-disabled = true
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossBricks2" unique_id=1077722016]
-position = Vector2(88, 0)
-shape = SubResource("RectangleShape2D_k73sm")
-disabled = true
-
-[node name="BossWall" type="StaticBody2D" parent="." unique_id=1454672]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BossWall" unique_id=1669780670]
-position = Vector2(-80, 8)
-shape = SubResource("RectangleShape2D_kqcpd")
-
-[node name="BossEntranceWall" type="StaticBody2D" parent="." unique_id=1868774722]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BossEntranceWall" unique_id=1403874747]
-position = Vector2(-112, -24.5)
-shape = SubResource("RectangleShape2D_n8g7f")
 
 [connection signal="body_entered" from="Door" to="." method="_on_door_body_entered"]

@@ -21,8 +21,8 @@ PlayerData="*uid://d0n27p3sjtubx"
 
 [display]
 
-window/size/viewport_width=160
-window/size/viewport_height=120
+window/size/viewport_width=192
+window/size/viewport_height=128
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"

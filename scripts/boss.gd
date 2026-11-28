@@ -59,10 +59,11 @@ func _process(delta: float) -> void:
 		State.NONE:
 			pass
 		State.METEOR:
+			$AnimatedSprite2D.play("default")
 			if amount_of_times_hit >= HIT_THRESHOLD:
 				animation_player.play("grow")
 				if knocked_player_back == false:
-					player.knockback(Vector2([randi_range(-800, -400), randi_range(400, 800)].pick_random(), -300))
+					player.knockback(Vector2(0, -300))
 					knocked_player_back = true
 				await animation_player.animation_finished
 				state = State.LEAPING_START
